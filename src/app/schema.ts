@@ -1,7 +1,7 @@
 import { z } from "zod";
 
 export const certificateSchema = z.object({
-  serviceType: z.enum(["RURAL", "URBAN"], {
+  serviceType: z.enum(["RURAL"], {
     required_error: "सेवा का प्रकार चुनें"
   }).default("RURAL"),
   applicantNameHindi: z.string().default("देवी दयाल गुप्ता"),

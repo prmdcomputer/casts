@@ -178,12 +178,6 @@ export function CertificateForm() {
                           </FormControl>
                           <FormLabel className="font-normal">ग्रामीण / Rural</FormLabel>
                         </FormItem>
-                        <FormItem className="flex items-center space-x-3 space-y-0">
-                          <FormControl>
-                            <RadioGroupItem value="URBAN" />
-                          </FormControl>
-                          <FormLabel className="font-normal">नगरीय / Urban</FormLabel>
-                        </FormItem>
                       </RadioGroup>
                     </FormControl>
                     <FormMessage />
