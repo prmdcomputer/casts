@@ -1,3 +1,22 @@
 {
-  "placeholderImages": []
+  "placeholderImages": [
+    {
+      "id": "up-seal",
+      "description": "Seal of Uttar Pradesh government",
+      "imageUrl": "https://images.unsplash.com/photo-1610803309576-0fd62360881c?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw5fHxnb3Zlcm5tZW50JTIwc2VhbHxlbnwwfHx8fDE3Njk1MTcxNTF8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "government seal"
+    },
+    {
+      "id": "applicant-photo",
+      "description": "Applicant's passport size photo",
+      "imageUrl": "https://images.unsplash.com/photo-1521119989659-a83eee488004?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw4fHxwZXJzb24lMjBwb3J0cmFpdHxlbnwwfHx8fDE3Njk0MTMyMzR8MA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "person portrait"
+    },
+    {
+      "id": "qr-code",
+      "description": "QR code for certificate verification",
+      "imageUrl": "https://images.unsplash.com/photo-1559131397-f94da358f7ca?crop=entropy&cs=tinysrgb&fit=max&fm=jpg&ixid=M3w3NDE5ODJ8MHwxfHNlYXJjaHw3fHxxciUyMGNvZGV8ZW58MHx8fHwxNzY5NDE4ODY3fDA&ixlib=rb-4.1.0&q=80&w=1080",
+      "imageHint": "qr code"
+    }
+  ]
 }
