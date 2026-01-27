@@ -4,8 +4,9 @@ export const certificateSchema = z.object({
   serviceType: z.enum(["RURAL"], {
     required_error: "सेवा का प्रकार चुनें"
   }).default("RURAL"),
-  applicantNameHindi: z.string().default("देवी दयाल गुप्ता"),
+  applicantNameHindi: z.string().min(1, "प्रार्थी का नाम आवश्यक है"),
   applicantNameEnglish: z.string().min(1, "Applicant's Name (in English) is required"),
+  applicantPhoto: z.string().optional(),
   relationType: z.enum(["पिता", "पति", "संरक्षक"], {
     required_error: "संबंध चुनें"
   }).default("पिता"),

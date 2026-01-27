@@ -20,6 +20,7 @@ import {
 import {
   Form,
   FormControl,
+  FormDescription,
   FormField,
   FormItem,
   FormLabel,
@@ -42,8 +43,9 @@ export function CertificateForm() {
     resolver: zodResolver(certificateSchema),
     defaultValues: {
       serviceType: 'RURAL',
-      applicantNameHindi: 'देवी दयाल गुप्ता',
+      applicantNameHindi: '',
       applicantNameEnglish: '',
+      applicantPhoto: '',
       relationType: 'पिता',
       relationName: '',
       motherName: '',
@@ -108,10 +110,11 @@ export function CertificateForm() {
                 name="applicantNameHindi"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>प्रार्थी का नाम (हिंदी में) / Applicant's Name (in Hindi)</FormLabel>
+                    <FormLabel>प्रार्थी का नाम (हिंदी में) / Applicant's Name (in Hindi) <span className="text-red-500">*</span></FormLabel>
                     <FormControl>
-                      <Input {...field} disabled />
+                      <Input placeholder="प्रार्थी का नाम (हिंदी में)" {...field} />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -124,6 +127,35 @@ export function CertificateForm() {
                     <FormControl>
                       <Input placeholder="Applicant's Name in English" {...field} />
                     </FormControl>
+                    <FormMessage />
+                  </FormItem>
+                )}
+              />
+               <FormField
+                control={form.control}
+                name="applicantPhoto"
+                render={({ field }) => (
+                  <FormItem className="md:col-span-2">
+                    <FormLabel>Photo</FormLabel>
+                    <FormControl>
+                      <Input 
+                        type="file" 
+                        accept="image/png, image/jpeg"
+                        onChange={(e) => {
+                          const file = e.target.files?.[0];
+                          if (file) {
+                            const reader = new FileReader();
+                            reader.onloadend = () => {
+                              form.setValue('applicantPhoto', reader.result as string);
+                            };
+                            reader.readAsDataURL(file);
+                          }
+                        }} 
+                      />
+                    </FormControl>
+                    <FormDescription>
+                      Upload a passport size photo. (.jpg, .jpeg, .png)
+                    </FormDescription>
                     <FormMessage />
                   </FormItem>
                 )}

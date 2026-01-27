@@ -10,7 +10,7 @@ import { Card, CardContent } from './ui/card';
 export function CertificatePreview() {
   const searchParams = useSearchParams();
   const upSeal = PlaceHolderImages.find((img) => img.id === 'up-seal');
-  const applicantPhoto = PlaceHolderImages.find((img) => img.id === 'applicant-photo');
+  const applicantPhotoPlaceholder = PlaceHolderImages.find((img) => img.id === 'applicant-photo');
   const qrCode = PlaceHolderImages.find((img) => img.id === 'qr-code');
 
   const data = React.useMemo(() => {
@@ -69,7 +69,11 @@ export function CertificatePreview() {
                     <p>जिला <b>{data.currentAddressDistrict}</b></p>
                 </div>
                 <div className="w-24 h-24 ml-4">
-                     {applicantPhoto && <Image src={applicantPhoto.imageUrl} alt={applicantPhoto.description} width={96} height={96} className="border" data-ai-hint={applicantPhoto.imageHint} />}
+                     {data.applicantPhoto ? (
+                        <Image src={data.applicantPhoto} alt="Applicant's photo" width={96} height={96} className="border" />
+                     ) : (
+                        applicantPhotoPlaceholder && <Image src={applicantPhotoPlaceholder.imageUrl} alt={applicantPhotoPlaceholder.description} width={96} height={96} className="border" data-ai-hint={applicantPhotoPlaceholder.imageHint} />
+                     )}
                 </div>
             </div>
 
