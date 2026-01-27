@@ -36,9 +36,16 @@ export function CertificatePreview() {
       </div>
       <div className="w-full max-w-4xl mt-8 relative certificate-preview bg-white text-black shadow-lg">
         
-        {watermark && <img style={{zIndex: -1, position: 'absolute', top: 220, left: 130, opacity: 0.1}} border={0} src={watermark.imageUrl} width="400" height="400" data-ai-hint={watermark.imageHint}/>}
+        {watermark && <img 
+            src={watermark.imageUrl} 
+            alt={watermark.description} 
+            width={400} 
+            height={400} 
+            style={{position: 'absolute', top: 220, left: 130, opacity: 0.1, pointerEvents: 'none'}} 
+            data-ai-hint={watermark.imageHint}
+        />}
 
-        <table className="mgn" border={0} align="center" width="90%" cellSpacing="0" cellPadding="0" style={{border: '1px solid #000000', paddingLeft: '4px', paddingRight: '4px', paddingTop: '1px', paddingBottom: '1px', fontSize: '10pt', fontFamily: 'Arial Unicode MS'}}>
+        <table className="mgn" border={0} align="center" width="90%" cellSpacing="0" cellPadding="0" style={{border: '1px solid #000000', paddingLeft: '4px', paddingRight: '4px', paddingTop: '1px', paddingBottom: '1px', fontSize: '10pt', fontFamily: 'Arial Unicode MS', position: 'relative'}}>
             <tbody>
                 <tr><td colSpan={6}>&nbsp;</td></tr>
                 <tr>
