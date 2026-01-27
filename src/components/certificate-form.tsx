@@ -63,6 +63,25 @@ export function CertificateForm() {
     },
   });
 
+  const { watch, setValue } = form;
+  const issueDate = watch('issueDate');
+
+  React.useEffect(() => {
+    if (issueDate) {
+      const date = new Date(issueDate);
+      if (date && !isNaN(date.getTime())) {
+        const year = date.getFullYear();
+
+        const random13 = Math.floor(1e12 + Math.random() * 9e12).toString();
+        setValue('applicationNumber', `${year}${random13}`);
+
+        const random11 = Math.floor(1e10 + Math.random() * 9e10).toString();
+        setValue('certificateNumber', `5${random11}`);
+      }
+    }
+  }, [issueDate, setValue]);
+
+
   function onSubmit(data: CertificateFormValues) {
     const params = new URLSearchParams();
     Object.entries(data).forEach(([key, value]) => {
@@ -114,7 +133,7 @@ export function CertificateForm() {
                   <FormItem>
                     <FormLabel>प्रार्थी का नाम (हिंदी में) / Applicant's Name (in Hindi) <span className="text-red-500">*</span></FormLabel>
                     <FormControl>
-                      <Input placeholder="प्रार्थी का नाम (हिंदी में)" {...field} />
+                      <Input placeholder="" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -127,7 +146,7 @@ export function CertificateForm() {
                   <FormItem>
                     <FormLabel>प्रार्थी का नाम (अंग्रेजी में) / Applicant's Name (in English) <span className="text-red-500">*</span></FormLabel>
                     <FormControl>
-                      <Input placeholder="Applicant's Name in English" {...field} />
+                      <Input placeholder="" {...field} />
                     </FormControl>
                     <FormMessage />
                   </FormItem>
@@ -257,7 +276,7 @@ export function CertificateForm() {
             
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 border-t pt-6">
                 <FormField control={form.control} name="issueDate" render={({ field }) => (
-                  <FormItem><FormLabel>जारी दिनांक / Issue Date <span className="text-red-500">*</span></FormLabel><FormControl><Input placeholder="DD-MM-YYYY" {...field} /></FormControl><FormMessage /></FormItem>
+                  <FormItem><FormLabel>जारी दिनांक / Issue Date <span className="text-red-500">*</span></FormLabel><FormControl><Input type="date" {...field} /></FormControl><FormMessage /></FormItem>
                 )}/>
                 <FormField control={form.control} name="officerName" render={({ field }) => (
                   <FormItem><FormLabel>सक्षम अधिकारी का नाम / Officer's Name <span className="text-red-500">*</span></FormLabel><FormControl><Input placeholder="Officer's Name" {...field} /></FormControl><FormMessage /></FormItem>
@@ -266,10 +285,10 @@ export function CertificateForm() {
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 border-t pt-6">
                 <FormField control={form.control} name="applicationNumber" render={({ field }) => (
-                  <FormItem><FormLabel>आवेदन क्रमांक / Application Number <span className="text-red-500">*</span></FormLabel><FormControl><Input placeholder="आवेदन क्रमांक" {...field} /></FormControl><FormMessage /></FormItem>
+                  <FormItem><FormLabel>आवेदन क्रमांक / Application Number <span className="text-red-500">*</span></FormLabel><FormControl><Input placeholder="आवेदन क्रमांक" {...field} readOnly /></FormControl><FormMessage /></FormItem>
                 )}/>
                 <FormField control={form.control} name="certificateNumber" render={({ field }) => (
-                  <FormItem><FormLabel>प्रमाण पत्र क्रमांक / Certificate Number <span className="text-red-500">*</span></FormLabel><FormControl><Input placeholder="प्रमाण पत्र क्रमांक" {...field} /></FormControl><FormMessage /></FormItem>
+                  <FormItem><FormLabel>प्रमाण पत्र क्रमांक / Certificate Number <span className="text-red-500">*</span></FormLabel><FormControl><Input placeholder="प्रमाण पत्र क्रमांक" {...field} readOnly /></FormControl><FormMessage /></FormItem>
                 )}/>
             </div>
 

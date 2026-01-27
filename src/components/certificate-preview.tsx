@@ -21,24 +21,24 @@ export function CertificatePreview() {
     return values;
   }, [searchParams]);
 
-  const issueDate = data.issueDate || '09/10/2025';
+  const issueDate = data.issueDate ? new Date(data.issueDate).toLocaleDateString('en-GB') : '09/10/2025';
 
   return (
     <div className="bg-gray-100 p-4 sm:p-8 flex flex-col items-center">
-      <div className="w-full max-w-4xl relative certificate-preview bg-white text-black shadow-lg">
+      <div className="w-full max-w-5xl relative certificate-preview bg-white text-black shadow-lg">
         
         {watermark && <img 
             src={watermark.imageUrl} 
             alt={watermark.description} 
             width={400} 
             height={400} 
-            style={{position: 'absolute', top: 220, left: '50%', transform: 'translateX(-50%)', opacity: 0.1, pointerEvents: 'none'}} 
+            style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', opacity: 0.1, pointerEvents: 'none'}} 
             data-ai-hint={watermark.imageHint}
         />}
 
         <table className="mgn" border={0} align="center" width="90%" cellSpacing="0" cellPadding="0" style={{border: '1px solid #000000', paddingLeft: '4px', paddingRight: '4px', paddingTop: '1px', paddingBottom: '1px', fontSize: '10pt', fontFamily: 'Arial Unicode MS', position: 'relative'}}>
             <tbody>
-                <tr><td colSpan={6}>&nbsp;</td></tr>
+                
                 <tr>
                     <td colSpan={6}>
                         <p align="center">
@@ -49,6 +49,7 @@ export function CertificatePreview() {
                 <tr>
                     <td colSpan={6}><p align="center"><font size="7">उत्तर प्रदॆश शासन</font></p></td>
                 </tr>
+                <tr><td colSpan={6}>&nbsp;</td></tr>
                 <tr>
                     <td colSpan={6}><p align="center"><b><font size="4">उत्तर प्रदेश के {data.category || 'पिछड़ी'} जाति के लिए जाति प्रमाण पत्र</font></b></p></td>
                 </tr>
@@ -151,9 +152,9 @@ export function CertificatePreview() {
                         <table border={0} style={{fontSize: '10pt'}} align="center" width="100%" cellSpacing="0" cellPadding="0">
                             <tbody>
                                 <tr>
-                                    <td align="left" width="17%" nowrap="true" valign="bottom" height="50">&nbsp;</td>
-                                    <td width="23%" nowrap="true" valign="bottom" height="50">&nbsp;</td>
-                                    <td width="29%" nowrap="true" valign="bottom" height="50" rowSpan={4}>
+                                    <td align="left" width="17%" nowrap="true" valign="bottom">&nbsp;</td>
+                                    <td width="23%" nowrap="true" valign="bottom">&nbsp;</td>
+                                    <td width="29%" nowrap="true" valign="bottom" rowSpan={4}>
                                         <table border={0} width="100%" cellSpacing="0" cellPadding="0" id="table1">
                                             <tbody>
                                                 <tr>
@@ -175,7 +176,7 @@ export function CertificatePreview() {
                                             </tbody>
                                         </table>&nbsp;
                                     </td>
-                                    <td width="15%" nowrap="true" colSpan={2} align="center" valign="bottom" height="50"></td>
+                                    <td width="15%" nowrap="true" colSpan={2} align="center" valign="bottom"></td>
                                 </tr>
                                 <tr>
                                     <td align="left" width="17%" nowrap="true">&nbsp;</td>
