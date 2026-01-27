@@ -137,10 +137,9 @@ export function CertificatePreview() {
                 </tr>
                  <tr><td colSpan={6}><font size="2pt">उत्तर प्रदेश राज्य की  <b><u>{data.caste}</u></b> जाति के व्यक्ति हैं। यह उत्तर प्रदेश लोक सेवा अनुसूचित जातियों,अनुसूचित जन जातियों तथा अन्य पिछड़े वर्गों के लिए आरक्षण अधिनियम १९९४ की अनुसूची एक के अन्तर्गत मान्यता प्राप्त है।<br/> यह भी प्रमाणित किया जाता है कि <b>  {data.applicantNameHindi}/{data.applicantNameEnglish}</b> पूर्वोक्त अधिनियम १९९४ (यथा संशोधित) की अनुसूची २ (जैसा कि उत्तर प्रदेश लोक सेवा)अनुसूचित जातियों, अनुसूचित जनजातियों और अन्य पिछड़े वर्गों के लिए आरक्षण (संशोधन) अधिनियम २००१ द्वारा प्रतिस्थापित किया गया है एंव जो उ०प्र० लोक सेवा अनुसूचित जातियों, अनुसूचित जनजातियों और अन्य पिछड़े वर्गों के लिए आरक्षण (संशोधन) अधिनियम २००२ एवं शासनादेश संख्या 22/16/92 टी० सी०-III , दिनाँक २० अक्टुबर २००८ द्वारा संशोधित की गई है, से आच्छादित नहीं है।इनके माता-पिता की निरन्तर तीन वर्षो की अवधि के लिये सकल वार्षिक आय आठ लाख रुपये  या इससे अधिक नहीं है तथा इनके पास धन कर अधिनियम १९५७ मे तथा विहिप छूट सीमा से अधिक सम्पत्ति नहीं है |</font></td></tr>
                  <tr>
-                    <td colSpan={6}>
-                        &nbsp;
+                    <td colSpan={6} align="center">
                         {verificationUrl && (
-                          <div style={{ height: "auto", margin: "0 auto", maxWidth: 101, width: "100%" }}>
+                          <div style={{ height: "auto", margin: "1rem auto 0", maxWidth: 100, width: "100%" }}>
                             <QRCode
                               size={256}
                               style={{ height: "auto", maxWidth: "100%", width: "100%" }}
@@ -156,13 +155,11 @@ export function CertificatePreview() {
                         <table border={0} style={{fontSize: '10pt'}} align="center" width="100%" cellSpacing="0" cellPadding="0">
                             <tbody>
                                 <tr>
-                                    <td align="left" width="17%" nowrap valign="bottom">&nbsp;</td>
-                                    <td width="23%" nowrap valign="bottom">&nbsp;</td>
-                                    <td width="29%" nowrap valign="bottom" rowSpan={4}>
+                                    <td width="60%" valign="top" style={{paddingLeft: '10%'}}>
                                         <table border={0} width="100%" cellSpacing="0" cellPadding="0" id="table1">
                                             <tbody>
                                                 <tr>
-                                                    <td width="50%" valign="top" align="right" style={{fontSize: '20px', fontFamily: 'Arial'}}>
+                                                    <td valign="top" align="right" style={{fontSize: '20px', fontFamily: 'Arial', paddingRight: '5px'}}>
                                                         {data.officerName?.split(' ').map((part, index, arr) => (
                                                             <React.Fragment key={index}>
                                                                 {part}
@@ -171,38 +168,25 @@ export function CertificatePreview() {
                                                         ))}
                                                         &nbsp;
                                                     </td>
-                                                    <td valign="top" align="left" width="50%" style={{fontSize: '8px', fontFamily: 'Arial'}}>
+                                                    <td valign="top" align="left" style={{fontSize: '8px', fontFamily: 'Arial', paddingTop: '4px'}}>
                                                         Digitally Signed by {data.officerName?.toUpperCase()} O=Personal,
                                                         <br />
                                                         C=IN,CN={data.officerName?.toUpperCase()}, L=ALLAHABAD, S=UTTAR PRADESH&nbsp;
                                                     </td>
                                                 </tr>
                                             </tbody>
-                                        </table>&nbsp;
+                                        </table>
                                     </td>
-                                    <td width="15%" nowrap colSpan={2} align="center" valign="bottom"></td>
+                                    <td width="40%" valign="bottom" align="center">
+                                        <b>सक्षम अधिकारी/तहसीलदार</b><br/>
+                                        <b>डिजिटल हस्ताक्षरित</b><br/>
+                                        <b>{data.currentAddressTehsil},{data.currentAddressDistrict}</b>
+                                    </td>
                                 </tr>
-                                <tr>
-                                    <td align="left" width="17%" nowrap>&nbsp;</td>
-                                    <td width="23%" style={{fontSize: '8px', fontFamily: 'Arial'}}><b></b></td>
-                                    <td width="15%" colSpan={2} align="center" nowrap><b>सक्षम अधिकारी/तहसीलदार</b></td>
-                                </tr>
-                                <tr>
-                                    <td align="left" width="17%" nowrap>&nbsp;</td>
-                                    <td width="23%" style={{fontSize: '8px', fontFamily: 'Arial'}}><b></b></td>
-                                    <td width="15%" colSpan={2} align="center" nowrap><b>डिजिटल हस्ताक्षरित</b></td>
-                                </tr>
-                                <tr>
-                                    <td width="17%" nowrap>&nbsp;</td>
-                                    <td width="23%" nowrap>&nbsp;<b></b></td>
-                                    <td width="9%" align="center" nowrap colSpan={2}><b>{data.currentAddressTehsil},{data.currentAddressDistrict}</b></td>
-                                </tr>
-                                <tr>
-                                    <td width="17%" nowrap>&nbsp;</td>
-                                    <td width="23%" nowrap>&nbsp;</td>
-                                    <td width="29%" nowrap>&nbsp;</td>
-                                    <td width="9%" nowrap><b>&nbsp;</b></td>
-                                    <td width="19%" nowrap><b>दिनॉंक:</b>&nbsp;<b>{issueDate}</b></td>
+                                 <tr>
+                                    <td colSpan={2} align="right" style={{paddingTop: '1rem', paddingRight: '5%'}}>
+                                      <b>दिनॉंक:</b>&nbsp;<b>{issueDate}</b>
+                                    </td>
                                 </tr>
                             </tbody>
                         </table>
