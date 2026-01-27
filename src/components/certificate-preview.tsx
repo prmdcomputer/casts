@@ -4,12 +4,12 @@ import * as React from 'react';
 import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
+import QRCode from 'react-qr-code';
 
 export function CertificatePreview() {
   const searchParams = useSearchParams();
   const upSeal = PlaceHolderImages.find((img) => img.id === 'up-seal');
   const applicantPhotoPlaceholder = PlaceHolderImages.find((img) => img.id === 'applicant-photo');
-  const qrCodePlaceholder = PlaceHolderImages.find((img) => img.id === 'qr-code');
   const watermark = PlaceHolderImages.find((img) => img.id === 'gov-monogram');
 
 
@@ -21,8 +21,8 @@ export function CertificatePreview() {
     return values;
   }, [searchParams]);
 
-  const qrCodeUrl = (data.applicationNumber && data.certificateNumber)
-    ? `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(`https://esathi.up.gov.in/citizenservices/ServiceEdist/Certificate/Caste/Forms/printCert.aspx?ApplicationNo=${data.applicationNumber}&CertificateID=${data.certificateNumber}`)}`
+  const verificationUrl = (data.applicationNumber && data.certificateNumber)
+    ? `https://esathi.up.gov.in/citizenservices/ServiceEdist/Certificate/Caste/Forms/printCert.aspx?ApplicationNo=${data.applicationNumber}&CertificateID=${data.certificateNumber}`
     : '';
 
 
@@ -51,26 +51,26 @@ export function CertificatePreview() {
                 <tr><td colSpan={6}><p align="center"><font size="7">उत्तर प्रदॆश शासन</font></p></td></tr>
                 <tr><td colSpan={6}><p align="center"><b><font size="4">उत्तर प्रदेश के {data.category || 'पिछड़ी'} जाति के लिए जाति प्रमाण पत्र</font></b></p></td></tr>
                 <tr>
-                    <td width="17%" nowrap="true"><b>जिला </b></td>
-                    <td nowrap="true"><b>{data.currentAddressDistrict}</b></td>
+                    <td width="17%" nowrap><b>जिला </b></td>
+                    <td nowrap><b>{data.currentAddressDistrict}</b></td>
                     <td width="30%" colSpan={3} align="right">&nbsp;</td>
-                    <td align="left" width="35%" nowrap="true">&nbsp;</td>
+                    <td align="left" width="35%" nowrap>&nbsp;</td>
                 </tr>
                 <tr>
-                    <td width="17%" nowrap="true"><b>तहसील </b></td>
-                    <td nowrap="true"><b>{data.currentAddressTehsil}</b></td>
+                    <td width="17%" nowrap><b>तहसील </b></td>
+                    <td nowrap><b>{data.currentAddressTehsil}</b></td>
                     <td width="30%" colSpan={3} align="right">&nbsp;</td>
-                    <td align="left" width="35%" nowrap="true"><b>जारी दिनांक: {issueDate}</b></td>
+                    <td align="left" width="35%" nowrap><b>जारी दिनांक: {issueDate}</b></td>
                 </tr>
                 <tr>
-                    <td width="17%" valign="top" nowrap="true"><b>आवेदन क्र०</b></td>
-                    <td width="30%" nowrap="true" valign="top"><b>{data.applicationNumber}</b></td>
+                    <td width="17%" valign="top" nowrap><b>आवेदन क्र०</b></td>
+                    <td width="30%" nowrap valign="top"><b>{data.applicationNumber}</b></td>
                     <td width="30%" colSpan={3} valign="top" align="left">&nbsp;</td>
                     <td width="35%" align="right">&nbsp;</td>
                 </tr>
                 <tr>
-                    <td width="17%" nowrap="true" valign="top"><b>प्रमाणपत्र क्र०</b></td>
-                    <td width="30%" nowrap="true" valign="top"><b>{data.certificateNumber}</b></td>
+                    <td width="17%" nowrap valign="top"><b>प्रमाणपत्र क्र०</b></td>
+                    <td width="30%" nowrap valign="top"><b>{data.certificateNumber}</b></td>
                     <td width="30%" colSpan={3} valign="top" align="left">&nbsp;</td>
                     <td width="35%" align="right">&nbsp;</td>
                 </tr>
@@ -92,37 +92,37 @@ export function CertificatePreview() {
                                 </tr>
                                 <tr>
                                     <td width="10%" align="left" valign="top">&nbsp;</td>
-                                    <td width="32%" height="20" align="left" nowrap="true" valign="middle">प्रमाणित किया जाता है कि</td>
+                                    <td width="32%" height="20" align="left" nowrap valign="middle">प्रमाणित किया जाता है कि</td>
                                     <td width="33%" height="20" align="left" valign="middle"><font size="2pt"><b>  {data.applicantNameHindi}/{data.applicantNameEnglish}</b></font></td>
                                 </tr>
                                 <tr>
                                     <td width="10%" align="left" valign="top">&nbsp;</td>
-                                    <td width="32%" height="20" align="left" nowrap="true" valign="middle"><font size="2pt">{data.relationType} </font></td>
+                                    <td width="32%" height="20" align="left" nowrap valign="middle"><font size="2pt">{data.relationType} </font></td>
                                     <td width="33%" height="20" align="left" valign="middle"><font size="2pt"><b>  {data.relationName}</b></font></td>
                                 </tr>
                                 <tr>
                                     <td width="10%" align="left" valign="top">&nbsp;</td>
-                                    <td width="32%" height="20" align="left" nowrap="true" valign="middle"><font size="2pt">माता का नाम</font></td>
+                                    <td width="32%" height="20" align="left" nowrap valign="middle"><font size="2pt">माता का नाम</font></td>
                                     <td width="33%" height="20" align="left" valign="middle"><font size="2pt"><b>{data.motherName}</b></font></td>
                                 </tr>
                                 <tr>
-                                    <td width="10%" align="left" nowrap="true" valign="top">&nbsp;</td>
-                                    <td width="32%" height="20" align="left" nowrap="true" valign="middle"><font size="2pt">निवासी</font></td>
+                                    <td width="10%" align="left" nowrap valign="top">&nbsp;</td>
+                                    <td width="32%" height="20" align="left" nowrap valign="middle"><font size="2pt">निवासी</font></td>
                                     <td width="33%" height="20" align="left" valign="middle"><font size="2pt"><b>{data.currentAddressHouseNo},{data.currentAddressMohalla}&nbsp;</b></font></td>
                                 </tr>
                                 <tr>
-                                    <td width="20%" align="left" nowrap="true" valign="top">&nbsp;</td>
-                                    <td width="32%" height="20" align="left" nowrap="true" valign="top"><font size="2pt">ग्राम</font></td>
+                                    <td width="20%" align="left" nowrap valign="top">&nbsp;</td>
+                                    <td width="32%" height="20" align="left" nowrap valign="top"><font size="2pt">ग्राम</font></td>
                                     <td width="33%" height="20" align="left" valign="top"><font size="2pt"><b>{data.currentAddressGram}</b>&nbsp;</font></td>
                                 </tr>
                                 <tr>
-                                    <td width="10%" align="left" nowrap="true" valign="top">&nbsp;</td>
-                                    <td width="32%" height="20" align="left" nowrap="true" valign="top"><font size="2pt">तहसील</font></td>
+                                    <td width="10%" align="left" nowrap valign="top">&nbsp;</td>
+                                    <td width="32%" height="20" align="left" nowrap valign="top"><font size="2pt">तहसील</font></td>
                                     <td width="33%" height="20" align="left" valign="top"><font size="2pt"><b>{data.currentAddressTehsil}</b></font></td>
                                 </tr>
                                 <tr>
-                                    <td width="10%" align="left" nowrap="true" valign="top">&nbsp;</td>
-                                    <td width="32%" height="20" align="left" nowrap="true" valign="top"><font size="2pt">जिला</font></td>
+                                    <td width="10%" align="left" nowrap valign="top">&nbsp;</td>
+                                    <td width="32%" height="20" align="left" nowrap valign="top"><font size="2pt">जिला</font></td>
                                     <td width="33%" height="20" align="left" valign="top"><font size="2pt"><b>{data.currentAddressDistrict}</b></font></td>
                                 </tr>
                                  <tr>
@@ -139,7 +139,16 @@ export function CertificatePreview() {
                  <tr>
                     <td colSpan={6}>
                         &nbsp;
-                        {qrCodePlaceholder && qrCodeUrl && <Image style={{width: '101px', height: '101px'}} src={qrCodeUrl} alt={qrCodePlaceholder.description} width={101} height={101} data-ai-hint={qrCodePlaceholder.imageHint}/>}
+                        {verificationUrl && (
+                          <div style={{ height: "auto", margin: "0 auto", maxWidth: 101, width: "100%" }}>
+                            <QRCode
+                              size={256}
+                              style={{ height: "auto", maxWidth: "100%", width: "100%" }}
+                              value={verificationUrl}
+                              viewBox={`0 0 256 256`}
+                            />
+                          </div>
+                        )}
                     </td>
                 </tr>
                  <tr>
@@ -147,9 +156,9 @@ export function CertificatePreview() {
                         <table border={0} style={{fontSize: '10pt'}} align="center" width="100%" cellSpacing="0" cellPadding="0">
                             <tbody>
                                 <tr>
-                                    <td align="left" width="17%" nowrap="true" valign="bottom">&nbsp;</td>
-                                    <td width="23%" nowrap="true" valign="bottom">&nbsp;</td>
-                                    <td width="29%" nowrap="true" valign="bottom" rowSpan={4}>
+                                    <td align="left" width="17%" nowrap valign="bottom">&nbsp;</td>
+                                    <td width="23%" nowrap valign="bottom">&nbsp;</td>
+                                    <td width="29%" nowrap valign="bottom" rowSpan={4}>
                                         <table border={0} width="100%" cellSpacing="0" cellPadding="0" id="table1">
                                             <tbody>
                                                 <tr>
@@ -171,29 +180,29 @@ export function CertificatePreview() {
                                             </tbody>
                                         </table>&nbsp;
                                     </td>
-                                    <td width="15%" nowrap="true" colSpan={2} align="center" valign="bottom"></td>
+                                    <td width="15%" nowrap colSpan={2} align="center" valign="bottom"></td>
                                 </tr>
                                 <tr>
-                                    <td align="left" width="17%" nowrap="true">&nbsp;</td>
+                                    <td align="left" width="17%" nowrap>&nbsp;</td>
                                     <td width="23%" style={{fontSize: '8px', fontFamily: 'Arial'}}><b></b></td>
-                                    <td width="15%" colSpan={2} align="center" nowrap="true"><b>सक्षम अधिकारी/तहसीलदार</b></td>
+                                    <td width="15%" colSpan={2} align="center" nowrap><b>सक्षम अधिकारी/तहसीलदार</b></td>
                                 </tr>
                                 <tr>
-                                    <td align="left" width="17%" nowrap="true">&nbsp;</td>
+                                    <td align="left" width="17%" nowrap>&nbsp;</td>
                                     <td width="23%" style={{fontSize: '8px', fontFamily: 'Arial'}}><b></b></td>
-                                    <td width="15%" colSpan={2} align="center" nowrap="true"><b>डिजिटल हस्ताक्षरित</b></td>
+                                    <td width="15%" colSpan={2} align="center" nowrap><b>डिजिटल हस्ताक्षरित</b></td>
                                 </tr>
                                 <tr>
-                                    <td width="17%" nowrap="true">&nbsp;</td>
-                                    <td width="23%" nowrap="true">&nbsp;<b></b></td>
-                                    <td width="9%" align="center" nowrap="true" colSpan={2}><b>{data.currentAddressTehsil},{data.currentAddressDistrict}</b></td>
+                                    <td width="17%" nowrap>&nbsp;</td>
+                                    <td width="23%" nowrap>&nbsp;<b></b></td>
+                                    <td width="9%" align="center" nowrap colSpan={2}><b>{data.currentAddressTehsil},{data.currentAddressDistrict}</b></td>
                                 </tr>
                                 <tr>
-                                    <td width="17%" nowrap="true">&nbsp;</td>
-                                    <td width="23%" nowrap="true">&nbsp;</td>
-                                    <td width="29%" nowrap="true">&nbsp;</td>
-                                    <td width="9%" nowrap="true"><b>&nbsp;</b></td>
-                                    <td width="19%" nowrap="true"><b>दिनॉंक:</b>&nbsp;<b>{issueDate}</b></td>
+                                    <td width="17%" nowrap>&nbsp;</td>
+                                    <td width="23%" nowrap>&nbsp;</td>
+                                    <td width="29%" nowrap>&nbsp;</td>
+                                    <td width="9%" nowrap><b>&nbsp;</b></td>
+                                    <td width="19%" nowrap><b>दिनॉंक:</b>&nbsp;<b>{issueDate}</b></td>
                                 </tr>
                             </tbody>
                         </table>

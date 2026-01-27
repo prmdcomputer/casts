@@ -13,12 +13,6 @@
       "imageHint": "person portrait"
     },
     {
-      "id": "qr-code",
-      "description": "QR code for certificate verification",
-      "imageUrl": "",
-      "imageHint": "qr code"
-    },
-    {
       "id": "gov-monogram",
       "description": "Government Monogram Watermark",
       "imageUrl": "/GOVERNMENT_MONOGRAM.gif",
