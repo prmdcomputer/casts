@@ -5,7 +5,6 @@ import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import { Button } from '@/components/ui/button';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
-import { castes, tehsils, villages } from '@/app/schema';
 import { Card, CardContent } from './ui/card';
 
 export function CertificatePreview() {
@@ -22,12 +21,7 @@ export function CertificatePreview() {
     return values;
   }, [searchParams]);
 
-  const issueDate = new Date().toLocaleDateString('en-IN', { day: '2-digit', month: '2-digit', year: 'numeric' });
-  
-  const tehsilLabel = tehsils[data.currentAddressDistrict]?.find(t => t.value === data.currentAddressTehsil)?.label || '';
-  const gramLabel = villages[data.currentAddressTehsil]?.find(v => v.value === data.currentAddressGram)?.label || '';
-  const casteLabel = castes[data.category]?.find(c => c.value === data.caste)?.label || '';
-
+  const issueDate = data.issueDate || new Date().toLocaleDateString('en-IN', { day: '2-digit', month: '2-digit', year: 'numeric' });
 
   return (
     <div className="bg-background min-h-screen p-4 sm:p-8 flex flex-col items-center font-serif">
@@ -45,13 +39,13 @@ export function CertificatePreview() {
             <div className="text-center">
               {upSeal && <Image src={upSeal.imageUrl} alt={upSeal.description} width={110} height={110} className="mx-auto" data-ai-hint={upSeal.imageHint}/>}
               <h1 className="text-4xl mt-4 font-bold" style={{fontFamily: "'Space Grotesk', sans-serif"}}>उत्तर प्रदेश शासन</h1>
-              <p className="text-xl mt-4 font-semibold">उत्तर प्रदेश के पिछड़ी जाति के लिए जाति प्रमाण पत्र</p>
+              <p className="text-xl mt-4 font-semibold">उत्तर प्रदेश के {data.category} जाति के लिए जाति प्रमाण पत्र</p>
             </div>
             
             <div className="flex justify-between mt-8 text-sm">
                 <div>
-                    <p><b>जिला:</b> श्रावस्ती</p>
-                    <p><b>तहसील:</b> {tehsilLabel}</p>
+                    <p><b>जिला:</b> {data.currentAddressDistrict}</p>
+                    <p><b>तहसील:</b> {data.currentAddressTehsil}</p>
                 </div>
                 <div className="text-right">
                     <p><b>जारी दिनांक:</b> {issueDate}</p>
@@ -59,8 +53,8 @@ export function CertificatePreview() {
             </div>
             <div className="flex justify-between mt-2 text-sm">
                  <div>
-                    <p><b>आवेदन क्र०:</b> {Math.floor(1000000000000 + Math.random() * 9000000000000)}</p>
-                    <p><b>प्रमाणपत्र क्र०:</b> {Math.floor(100000000000 + Math.random() * 900000000000)}</p>
+                    <p><b>आवेदन क्र०:</b> 3450000000001</p>
+                    <p><b>प्रमाणपत्र क्र०:</b> 123000000000</p>
                  </div>
             </div>
 
@@ -70,9 +64,9 @@ export function CertificatePreview() {
                     <p>{data.relationType} <b>{data.relationName}</b></p>
                     <p>माता का नाम <b>{data.motherName}</b></p>
                     <p>निवासी <b>{data.currentAddressHouseNo}, {data.currentAddressMohalla}</b></p>
-                    {data.serviceType === 'RURAL' && <p>ग्राम <b>{gramLabel}</b></p>}
-                    <p>तहसील <b>{tehsilLabel}</b></p>
-                    <p>जिला <b>श्रावस्ती</b></p>
+                    {data.serviceType === 'RURAL' && <p>ग्राम <b>{data.currentAddressGram}</b></p>}
+                    <p>तहसील <b>{data.currentAddressTehsil}</b></p>
+                    <p>जिला <b>{data.currentAddressDistrict}</b></p>
                 </div>
                 <div className="w-24 h-24 ml-4">
                      {applicantPhoto && <Image src={applicantPhoto.imageUrl} alt={applicantPhoto.description} width={96} height={96} className="border" data-ai-hint={applicantPhoto.imageHint} />}
@@ -80,7 +74,7 @@ export function CertificatePreview() {
             </div>
 
             <p className="mt-4 text-sm leading-relaxed">
-                उत्तर प्रदेश राज्य की <b><u>{casteLabel}</u></b> जाति के व्यक्ति हैं। यह उत्तर प्रदेश लोक सेवा अनुसूचित जातियों,अनुसूचित जन जातियों तथा अन्य पिछड़े वर्गों के लिए आरक्षण अधिनियम १९९४ की अनुसूची एक के अन्तर्गत मान्यता प्राप्त है।
+                उत्तर प्रदेश राज्य की <b><u>{data.caste}</u></b> जाति के व्यक्ति हैं। यह उत्तर प्रदेश लोक सेवा अनुसूचित जातियों,अनुसूचित जन जातियों तथा अन्य पिछड़े वर्गों के लिए आरक्षण अधिनियम १९९४ की अनुसूची एक के अन्तर्गत मान्यता प्राप्त है।
                 <br />
                 यह भी प्रमाणित किया जाता है कि <b>{data.applicantNameEnglish?.toUpperCase()}</b> पूर्वोक्त अधिनियम १९९४ (यथा संशोधित) की अनुसूची २ (जैसा कि उत्तर प्रदेश लोक सेवा)अनुसूचित जातियों, अनुसूचित जनजातियों और अन्य पिछड़े वर्गों के लिए आरक्षण (संशोधन) अधिनियम २००१ द्वारा प्रतिस्थापित किया गया है एंव जो उ०प्र० लोक सेवा अनुसूचित जातियों, अनुसूचित जनजातियों और अन्य पिछड़े वर्गों के लिए आरक्षण (संशोधन) अधिनियम २००२ एवं शासनादेश संख्या 22/16/92 टी० सी०-III , दिनाँक २० अक्टुबर २००८ द्वारा संशोधित की गई है, से आच्छादित नहीं है।इनके माता-पिता की निरन्तर तीन वर्षो की अवधि के लिये सकल वार्षिक आय आठ लाख रुपये या इससे अधिक नहीं है तथा इनके पास धन कर अधिनियम १९५७ मे तथा विहिप छूट सीमा से अधिक सम्पत्ति नहीं है |
             </p>
@@ -90,10 +84,10 @@ export function CertificatePreview() {
                     {qrCode && <Image src={qrCode.imageUrl} alt={qrCode.description} width={56} height={56} data-ai-hint={qrCode.imageHint}/>}
                 </div>
                 <div className="w-2/3 text-center text-sm">
-                    <p className="font-bold text-lg" style={{fontFamily: "'Space Grotesk', sans-serif"}}>ANAND SINGH</p>
+                    <p className="font-bold text-lg" style={{fontFamily: "'Space Grotesk', sans-serif"}}>{data.officerName?.toUpperCase()}</p>
                     <p><b>सक्षम अधिकारी/तहसीलदार</b></p>
                     <p>डिजिटल हस्ताक्षरित</p>
-                    <p>{tehsilLabel}, श्रावस्ती</p>
+                    <p>{data.currentAddressTehsil}, {data.currentAddressDistrict}</p>
                     <p><b>दिनांक:</b> {issueDate}</p>
                 </div>
             </div>

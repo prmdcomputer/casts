@@ -7,10 +7,6 @@ import { useRouter } from 'next/navigation';
 import {
   certificateSchema,
   type CertificateFormValues,
-  tehsils,
-  villages,
-  castes,
-  attachmentTitles
 } from '@/app/schema';
 import { Button } from '@/components/ui/button';
 import {
@@ -38,102 +34,30 @@ import {
   SelectValue,
 } from '@/components/ui/select';
 import { RadioGroup, RadioGroupItem } from '@/components/ui/radio-group';
-import { Checkbox } from '@/components/ui/checkbox';
-import { Textarea } from '@/components/ui/textarea';
-import { FileUp, Trash2 } from 'lucide-react';
-import { useToast } from '@/hooks/use-toast';
-import Image from 'next/image';
-
-type Attachment = {
-  title: string;
-  file: File;
-};
 
 export function CertificateForm() {
   const router = useRouter();
-  const { toast } = useToast();
-  const [attachments, setAttachments] = React.useState<Attachment[]>([]);
-  const [currentAttachment, setCurrentAttachment] = React.useState<{title: string, file: File | null}>({ title: '', file: null });
 
   const form = useForm<CertificateFormValues>({
     resolver: zodResolver(certificateSchema),
     defaultValues: {
       serviceType: 'RURAL',
       applicantNameHindi: 'देवी दयाल गुप्ता',
-      applicantNameEnglish: 'Devi Dayal Gupta',
+      applicantNameEnglish: '',
       relationType: 'पिता',
       relationName: '',
       motherName: '',
       currentAddressHouseNo: '',
       currentAddressMohalla: '',
-      currentAddressDistrict: '051',
+      currentAddressDistrict: '',
       currentAddressTehsil: '',
       currentAddressGram: '',
-      mobileNo: '',
-      isPermanentAddressSame: false,
-      permanentAddress: '',
       category: '',
       caste: '',
-      reason: '',
-      hasPreviousCertificate: '0',
-      familyId: '218041587369',
+      issueDate: '',
+      officerName: '',
     },
   });
-
-  const watchDistrict = form.watch('currentAddressDistrict');
-  const watchTehsil = form.watch('currentAddressTehsil');
-  const watchCategory = form.watch('category');
-  const watchServiceType = form.watch('serviceType');
-  const watchIsSameAddress = form.watch('isPermanentAddressSame');
-  const watchAadhaarPhoto = form.watch('applicantPhoto');
-
-  React.useEffect(() => {
-    if (watchIsSameAddress) {
-      const { currentAddressHouseNo, currentAddressMohalla, currentAddressDistrict, currentAddressTehsil, currentAddressGram } = form.getValues();
-      const districtLabel = "श्रावस्ती";
-      const tehsilLabel = tehsils[currentAddressDistrict]?.find(t => t.value === currentAddressTehsil)?.label || '';
-      const gramLabel = villages[currentAddressTehsil]?.find(v => v.value === currentAddressGram)?.label || '';
-      const fullAddress = [
-        currentAddressHouseNo,
-        currentAddressMohalla,
-        gramLabel,
-        tehsilLabel,
-        districtLabel
-      ].filter(Boolean).join(', ');
-      form.setValue('permanentAddress', fullAddress);
-    } else {
-      form.setValue('permanentAddress', '');
-    }
-  }, [watchIsSameAddress, form]);
-
-
-  const handleAddAttachment = () => {
-    if (currentAttachment.title && currentAttachment.file) {
-      if (attachments.find(a => a.title === currentAttachment.title)) {
-        toast({
-          variant: "destructive",
-          title: "Error",
-          description: `"${currentAttachment.title}" is already attached.`,
-        });
-        return;
-      }
-      setAttachments([...attachments, { title: currentAttachment.title, file: currentAttachment.file }]);
-      setCurrentAttachment({ title: '', file: null });
-      const fileInput = document.getElementById('attachment-file-input') as HTMLInputElement;
-      if (fileInput) fileInput.value = '';
-      form.setValue('attachmentTitle', '');
-    } else {
-      toast({
-        variant: "destructive",
-        title: "Error",
-        description: "Please select an attachment title and a file.",
-      });
-    }
-  };
-
-  const removeAttachment = (title: string) => {
-    setAttachments(attachments.filter(a => a.title !== title));
-  }
 
   function onSubmit(data: CertificateFormValues) {
     const params = new URLSearchParams();
@@ -142,11 +66,6 @@ export function CertificateForm() {
         params.append(key, String(value));
       }
     });
-    attachments.forEach((att, index) => {
-      params.append(`attachment_${index}_title`, att.title);
-      params.append(`attachment_${index}_name`, att.file.name);
-    });
-
     router.push(`/preview?${params.toString()}`);
   }
 
@@ -201,10 +120,11 @@ export function CertificateForm() {
                 name="applicantNameEnglish"
                 render={({ field }) => (
                   <FormItem>
-                    <FormLabel>प्रार्थी का नाम (अंग्रेजी में) / Applicant's Name (in English)</FormLabel>
+                    <FormLabel>प्रार्थी का नाम (अंग्रेजी में) / Applicant's Name (in English) <span className="text-red-500">*</span></FormLabel>
                     <FormControl>
-                      <Input {...field} disabled />
+                      <Input placeholder="Applicant's Name in English" {...field} />
                     </FormControl>
+                    <FormMessage />
                   </FormItem>
                 )}
               />
@@ -272,59 +192,15 @@ export function CertificateForm() {
                   <FormItem><FormLabel>मौहल्ला/पोस्ट</FormLabel><FormControl><Input placeholder="Mohalla/Post" {...field} /></FormControl><FormMessage /></FormItem>
                 )}/>
                 <FormField control={form.control} name="currentAddressDistrict" render={({ field }) => (
-                  <FormItem><FormLabel>जनपद <span className="text-red-500">*</span></FormLabel>
-                    <Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger><SelectValue placeholder="--जनपद चुनें--" /></SelectTrigger></FormControl>
-                    <SelectContent><SelectItem value="051">श्रावस्ती</SelectItem></SelectContent></Select><FormMessage />
-                  </FormItem>
+                  <FormItem><FormLabel>जनपद (हिंदी में) <span className="text-red-500">*</span></FormLabel><FormControl><Input placeholder="जनपद" {...field} /></FormControl><FormMessage /></FormItem>
                 )}/>
                 <FormField control={form.control} name="currentAddressTehsil" render={({ field }) => (
-                  <FormItem><FormLabel>तहसील <span className="text-red-500">*</span></FormLabel>
-                    <Select onValueChange={field.onChange} value={field.value}><FormControl><SelectTrigger><SelectValue placeholder="--तहसील चुनें--" /></SelectTrigger></FormControl>
-                    <SelectContent>{tehsils[watchDistrict]?.map(t => <SelectItem key={t.value} value={t.value}>{t.label}</SelectItem>)}</SelectContent></Select><FormMessage />
-                  </FormItem>
+                  <FormItem><FormLabel>तहसील (हिंदी में) <span className="text-red-500">*</span></FormLabel><FormControl><Input placeholder="तहसील" {...field} /></FormControl><FormMessage /></FormItem>
                 )}/>
-                {watchServiceType === 'RURAL' && (
-                  <FormField control={form.control} name="currentAddressGram" render={({ field }) => (
-                    <FormItem><FormLabel>ग्राम <span className="text-red-500">*</span></FormLabel>
-                      <Select onValueChange={field.onChange} value={field.value}><FormControl><SelectTrigger><SelectValue placeholder="--ग्राम चुनें--" /></SelectTrigger></FormControl>
-                      <SelectContent>{villages[watchTehsil]?.map(v => <SelectItem key={v.value} value={v.value}>{v.label}</SelectItem>)}</SelectContent></Select><FormMessage />
-                    </FormItem>
-                  )}/>
-                )}
-                <FormField control={form.control} name="mobileNo" render={({ field }) => (
-                  <FormItem><FormLabel>मोबाईल नम्बर <span className="text-red-500">*</span></FormLabel><FormControl><Input type="tel" placeholder="Mobile No." {...field} /></FormControl><FormMessage /></FormItem>
+                <FormField control={form.control} name="currentAddressGram" render={({ field }) => (
+                    <FormItem><FormLabel>ग्राम (हिंदी में) <span className="text-red-500">*</span></FormLabel><FormControl><Input placeholder="ग्राम" {...field} /></FormControl><FormMessage /></FormItem>
                 )}/>
               </div>
-            </div>
-
-            <div className="space-y-4 border-t pt-6">
-                <FormField
-                    control={form.control}
-                    name="isPermanentAddressSame"
-                    render={({ field }) => (
-                        <FormItem className="flex flex-row items-start space-x-3 space-y-0">
-                        <FormControl>
-                            <Checkbox checked={field.value} onCheckedChange={field.onChange} />
-                        </FormControl>
-                        <div className="space-y-1 leading-none">
-                            <FormLabel>स्थाई पता उपरोक्त है / Permanent address is same as above</FormLabel>
-                        </div>
-                        </FormItem>
-                    )}
-                    />
-                <FormField
-                    control={form.control}
-                    name="permanentAddress"
-                    render={({ field }) => (
-                        <FormItem>
-                        <FormLabel>स्थाई पता / Permanent Address <span className="text-red-500">*</span></FormLabel>
-                        <FormControl>
-                            <Textarea placeholder="स्थाई पता" {...field} disabled={watchIsSameAddress} />
-                        </FormControl>
-                        <FormMessage />
-                        </FormItem>
-                    )}
-                />
             </div>
 
             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 border-t pt-6">
@@ -332,62 +208,28 @@ export function CertificateForm() {
                   <FormItem><FormLabel>श्रेणी / Category <span className="text-red-500">*</span></FormLabel>
                   <Select onValueChange={field.onChange} value={field.value}><FormControl><SelectTrigger><SelectValue placeholder="--श्रेणी चुनें--" /></SelectTrigger></FormControl>
                   <SelectContent>
-                      <SelectItem value="1">पिछड़ी</SelectItem>
-                      <SelectItem value="2">अनुसूचित जाति</SelectItem>
-                      <SelectItem value="3">अनुसूचित जनजाति</SelectItem>
-                      <SelectItem value="5">विमुक्त</SelectItem>
+                      <SelectItem value="पिछड़ी">पिछड़ी</SelectItem>
+                      <SelectItem value="अनुसूचित जाति">अनुसूचित जाति</SelectItem>
+                      <SelectItem value="अनुसूचित जनजाति">अनुसूचित जनजाति</SelectItem>
+                      <SelectItem value="विमुक्त">विमुक्त</SelectItem>
                   </SelectContent></Select><FormMessage /></FormItem>
               )}/>
               <FormField control={form.control} name="caste" render={({ field }) => (
-                  <FormItem><FormLabel>जाति / Caste <span className="text-red-500">*</span></FormLabel>
-                  <Select onValueChange={field.onChange} value={field.value}><FormControl><SelectTrigger><SelectValue placeholder="--जाति चुनें--" /></SelectTrigger></FormControl>
-                  <SelectContent>{castes[watchCategory]?.map(c => <SelectItem key={c.value} value={c.value}>{c.label}</SelectItem>)}</SelectContent></Select><FormMessage /></FormItem>
-              )}/>
-              <FormField control={form.control} name="reason" render={({ field }) => (
-                  <FormItem className="md:col-span-2"><FormLabel>प्रमाण पत्र बनवाने का कारण / Reason for Certificate <span className="text-red-500">*</span></FormLabel><FormControl><Input placeholder="कारण" {...field} /></FormControl><FormMessage /></FormItem>
-              )}/>
-               <FormField control={form.control} name="hasPreviousCertificate" render={({ field }) => (
-                  <FormItem className="md:col-span-2"><FormLabel>क्या इससे पूर्व स्वयं / परिवार के सदस्य का प्रमाण पत्र जारी हुआ है ?</FormLabel>
-                  <Select onValueChange={field.onChange} defaultValue={field.value}><FormControl><SelectTrigger><SelectValue /></SelectTrigger></FormControl>
-                  <SelectContent><SelectItem value="0">नहीं</SelectItem><SelectItem value="1">हां</SelectItem></SelectContent></Select><FormMessage /></FormItem>
-              )}/>
-              <FormField control={form.control} name="familyId" render={({ field }) => (
-                  <FormItem className="md:col-span-2"><FormLabel>फैमिली आई.डी. / Family ID</FormLabel><FormControl><Input {...field} disabled /></FormControl><FormMessage /></FormItem>
+                  <FormItem><FormLabel>जाति (हिंदी में) / Caste (in Hindi) <span className="text-red-500">*</span></FormLabel>
+                  <FormControl><Input placeholder="जाति" {...field} /></FormControl>
+                  <FormMessage /></FormItem>
               )}/>
             </div>
-
-            <div className="space-y-4 border-t pt-6">
-                <h3 className="font-headline text-lg">संलग्नक / Attachments</h3>
-                <p className="text-sm text-muted-foreground">अनिवार्य संलग्नक: फोटो, स्वप्रमाणित घोषणा पत्र. फ़ाइल प्रकार: .jpg, .jpeg, .png. अधिकतम आकार: फोटो 50KB, अन्य 100KB.</p>
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 items-end">
-                  <FormField control={form.control} name="attachmentTitle" render={({ field }) => (
-                      <FormItem><FormLabel>संलग्नक शीर्षक</FormLabel>
-                      <Select onValueChange={(value) => { field.onChange(value); setCurrentAttachment(prev => ({ ...prev, title: value })); }} value={field.value}>
-                      <FormControl><SelectTrigger><SelectValue placeholder="--चुने--" /></SelectTrigger></FormControl>
-                      <SelectContent>{attachmentTitles.map(t => <SelectItem key={t.value} value={t.value}>{t.label}</SelectItem>)}</SelectContent></Select><FormMessage /></FormItem>
-                  )}/>
-                  <div>
-                    <Input id="attachment-file-input" type="file" accept=".jpg,.jpeg,.png" onChange={(e) => setCurrentAttachment(prev => ({...prev, file: e.target.files?.[0] || null}))} />
-                  </div>
-                </div>
-                 <div className="flex justify-end">
-                    <Button type="button" onClick={handleAddAttachment}><FileUp className="mr-2 h-4 w-4" />अपलोड / Upload</Button>
-                </div>
-
-                {attachments.length > 0 && (
-                  <div className="mt-4 space-y-2">
-                    <h4 className="font-medium">अपलोड किए गए दस्तावेज़:</h4>
-                    <ul className="list-disc list-inside bg-gray-50 dark:bg-gray-900 p-4 rounded-md">
-                      {attachments.map((att, index) => (
-                        <li key={index} className="flex justify-between items-center">
-                          <span>{att.title} ({att.file.name})</span>
-                          <Button variant="ghost" size="icon" onClick={() => removeAttachment(att.title)}><Trash2 className="h-4 w-4 text-red-500" /></Button>
-                        </li>
-                      ))}
-                    </ul>
-                  </div>
-                )}
+            
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 border-t pt-6">
+                <FormField control={form.control} name="issueDate" render={({ field }) => (
+                  <FormItem><FormLabel>जारी दिनांक / Issue Date <span className="text-red-500">*</span></FormLabel><FormControl><Input placeholder="DD-MM-YYYY" {...field} /></FormControl><FormMessage /></FormItem>
+                )}/>
+                <FormField control={form.control} name="officerName" render={({ field }) => (
+                  <FormItem><FormLabel>सक्षम अधिकारी का नाम / Officer's Name <span className="text-red-500">*</span></FormLabel><FormControl><Input placeholder="Officer's Name" {...field} /></FormControl><FormMessage /></FormItem>
+                )}/>
             </div>
+
 
             <CardFooter className="flex justify-center p-0 pt-6">
               <Button type="submit" size="lg">दर्ज करें / Submit</Button>
