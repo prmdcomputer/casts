@@ -9,7 +9,7 @@ export function CertificatePreview() {
   const searchParams = useSearchParams();
   const upSeal = PlaceHolderImages.find((img) => img.id === 'up-seal');
   const applicantPhotoPlaceholder = PlaceHolderImages.find((img) => img.id === 'applicant-photo');
-  const qrCode = PlaceHolderImages.find((img) => img.id === 'qr-code');
+  const qrCodePlaceholder = PlaceHolderImages.find((img) => img.id === 'qr-code');
   const watermark = PlaceHolderImages.find((img) => img.id === 'gov-monogram');
 
 
@@ -20,6 +20,10 @@ export function CertificatePreview() {
     });
     return values;
   }, [searchParams]);
+
+  const qrCodeVerificationUrl = `https://esathi.up.gov.in/citizenservices/ServiceEdist/Certificate/Caste/Forms/printCert.aspx?ApplicationNo=${data.applicationNumber}&CertificateID=${data.certificateNumber}`;
+  const qrCodeUrl = `https://api.qrserver.com/v1/create-qr-code/?data=${encodeURIComponent(qrCodeVerificationUrl)}`;
+
 
   const issueDate = data.issueDate ? new Date(data.issueDate).toLocaleDateString('en-GB') : '09/10/2025';
 
@@ -134,7 +138,7 @@ export function CertificatePreview() {
                  <tr>
                     <td colSpan={6}>
                         &nbsp;
-                        {qrCode && <Image style={{width: '101px', height: '101px'}} src={qrCode.imageUrl} alt={qrCode.description} width={101} height={101} data-ai-hint={qrCode.imageHint}/>}
+                        {qrCodePlaceholder && <Image style={{width: '101px', height: '101px'}} src={qrCodeUrl} alt={qrCodePlaceholder.description} width={101} height={101} data-ai-hint={qrCodePlaceholder.imageHint}/>}
                     </td>
                 </tr>
                  <tr>

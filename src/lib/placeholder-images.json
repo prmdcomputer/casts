@@ -15,7 +15,7 @@
     {
       "id": "qr-code",
       "description": "QR code for certificate verification",
-      "imageUrl": "https://api.qrserver.com/v1/create-qr-code/?data=https%3A%2F%2Fesathi.up.gov.in%2Fcitizenservices%2FServiceEdist%2FCertificate%2FCaste%2FForms%2FprintCert.aspx",
+      "imageUrl": "",
       "imageHint": "qr code"
     },
     {
