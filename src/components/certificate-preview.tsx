@@ -25,7 +25,7 @@ export function CertificatePreview() {
   const issueDate = data.issueDate || '09/10/2025';
 
   return (
-    <div className="bg-background min-h-screen p-4 sm:p-8 flex flex-col items-center">
+    <div className="bg-gray-100 min-h-screen p-4 sm:p-8 flex flex-col items-center">
       <div className="w-full max-w-4xl space-y-4 no-print">
         <h1 className="text-3xl font-headline text-center">Certificate Preview</h1>
         <p className="text-center text-muted-foreground">This is a preview of your certificate. You can print it or download as PDF.</p>
@@ -34,15 +34,17 @@ export function CertificatePreview() {
             <Button variant="outline" onClick={() => window.history.back()}>Back to Form</Button>
         </div>
       </div>
-      <div className="w-full max-w-4xl mt-8 relative certificate-preview">
+      <div className="w-full max-w-4xl mt-8 relative certificate-preview bg-white text-black shadow-lg">
         
-        <table className="mgn w-full" border={0} align="center" cellSpacing="0" cellPadding="0" style={{border: '1px solid #000000', paddingLeft: '4px', paddingRight: '4px', paddingTop: '1px', paddingBottom: '1px', fontSize: '10pt', fontFamily: 'Arial Unicode MS'}}>
+        {watermark && <img style={{zIndex: -1, position: 'absolute', top: 220, left: 130, opacity: 0.1}} border={0} src={watermark.imageUrl} width="400" height="400" data-ai-hint={watermark.imageHint}/>}
+
+        <table className="mgn" border={0} align="center" width="90%" cellSpacing="0" cellPadding="0" style={{border: '1px solid #000000', paddingLeft: '4px', paddingRight: '4px', paddingTop: '1px', paddingBottom: '1px', fontSize: '10pt', fontFamily: 'Arial Unicode MS'}}>
             <tbody>
                 <tr><td colSpan={6}>&nbsp;</td></tr>
                 <tr>
                     <td colSpan={6}>
                         <p align="center">
-                            {upSeal && <Image src={upSeal.imageUrl} alt={upSeal.description} width="110" height="110" data-ai-hint={upSeal.imageHint} />}
+                            {upSeal && <Image src={upSeal.imageUrl} alt={upSeal.description} width={110} height={110} data-ai-hint={upSeal.imageHint} />}
                         </p>
                     </td>
                 </tr>
@@ -81,7 +83,6 @@ export function CertificatePreview() {
                 </tr>
                 <tr>
                     <td colSpan={6}>
-                        {watermark && <img style={{zIndex: -1, position: 'absolute', float: 'left', top: 220, left: 130, opacity: 0.1}} border={0} src={watermark.imageUrl} width="400" height="400" data-ai-hint={watermark.imageHint}/>}
                         <table border={0} style={{fontSize: '10pt'}} width="100%" cellSpacing="0" cellPadding="0">
                             <tbody>
                                 <tr>
