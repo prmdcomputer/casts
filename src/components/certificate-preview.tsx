@@ -160,8 +160,20 @@ export function CertificatePreview() {
                                         <table border={0} width="100%" cellSpacing="0" cellPadding="0" id="table1">
                                             <tbody>
                                                 <tr>
-                                                    <td width="50%" valign="top" align="right" style={{fontSize: '20px', fontFamily: 'Arial'}}>{data.officerName}&nbsp;</td>
-                                                    <td valign="top" align="left" width="50%" style={{fontSize: '8px', fontFamily: 'Arial'}}>Digitally Signed by {data.officerName?.toUpperCase()}  O=Personal, C=IN,CN={data.officerName?.toUpperCase()}, L=ALLAHABAD, S=UTTAR PRADESH&nbsp;</td>
+                                                    <td width="50%" valign="top" align="right" style={{fontSize: '20px', fontFamily: 'Arial'}}>
+                                                        {data.officerName?.split(' ').map((part, index, arr) => (
+                                                            <React.Fragment key={index}>
+                                                                {part}
+                                                                {index < arr.length - 1 && <br />}
+                                                            </React.Fragment>
+                                                        ))}
+                                                        &nbsp;
+                                                    </td>
+                                                    <td valign="top" align="left" width="50%" style={{fontSize: '8px', fontFamily: 'Arial'}}>
+                                                        Digitally Signed by {data.officerName?.toUpperCase()} O=Personal,
+                                                        <br />
+                                                        C=IN,CN={data.officerName?.toUpperCase()}, L=ALLAHABAD, S=UTTAR PRADESH&nbsp;
+                                                    </td>
                                                 </tr>
                                             </tbody>
                                         </table>&nbsp;
