@@ -3,7 +3,6 @@
 import * as React from 'react';
 import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
-import { Button } from '@/components/ui/button';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 
 export function CertificatePreview() {
@@ -26,15 +25,7 @@ export function CertificatePreview() {
 
   return (
     <div className="bg-gray-100 min-h-screen p-4 sm:p-8 flex flex-col items-center">
-      <div className="w-full max-w-4xl space-y-4 no-print">
-        <h1 className="text-3xl font-headline text-center">Certificate Preview</h1>
-        <p className="text-center text-muted-foreground">This is a preview of your certificate. You can print it or download as PDF.</p>
-        <div className="flex justify-center gap-4">
-            <Button onClick={() => window.print()}>Print / Download PDF</Button>
-            <Button variant="outline" onClick={() => window.history.back()}>Back to Form</Button>
-        </div>
-      </div>
-      <div className="w-full max-w-4xl mt-8 relative certificate-preview bg-white text-black shadow-lg">
+      <div className="w-full max-w-4xl relative certificate-preview bg-white text-black shadow-lg">
         
         {watermark && <img 
             src={watermark.imageUrl} 
