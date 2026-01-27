@@ -25,7 +25,7 @@ export function CertificatePreview() {
 
   return (
     <div className="bg-gray-100 p-4 sm:p-8 flex flex-col items-center min-h-screen">
-      <div className="w-full max-w-4xl bg-white text-black shadow-lg relative certificate-preview" style={{width: '21cm', minHeight: '29.7cm', padding: '1rem' }}>
+      <div className="w-full max-w-4xl bg-white text-black shadow-lg relative certificate-preview" style={{width: '21cm', padding: '1rem' }}>
         
         {watermark && <img 
             src={watermark.imageUrl} 
@@ -134,7 +134,7 @@ export function CertificatePreview() {
                  <tr>
                     <td colSpan={6}>
                         &nbsp;
-                        {qrCode && <Image style={{width: '168px', height: '168px'}} src={qrCode.imageUrl} alt={qrCode.description} width={168} height={168} data-ai-hint={qrCode.imageHint}/>}
+                        {qrCode && <Image style={{width: '101px', height: '101px'}} src={qrCode.imageUrl} alt={qrCode.description} width={101} height={101} data-ai-hint={qrCode.imageHint}/>}
                     </td>
                 </tr>
                  <tr>
