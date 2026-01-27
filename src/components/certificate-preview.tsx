@@ -26,8 +26,8 @@ export function CertificatePreview() {
   const issueDate = data.issueDate ? new Date(data.issueDate).toLocaleDateString('en-GB') : '09/10/2025';
 
   return (
-    <div className="bg-gray-200 p-4 sm:p-8 flex flex-col items-center min-h-screen">
-      <div className="w-full max-w-5xl bg-white text-black shadow-lg relative certificate-preview">
+    <div className="bg-gray-100 p-4 sm:p-8 flex flex-col items-center min-h-screen">
+      <div className="w-full max-w-4xl bg-white text-black shadow-lg relative certificate-preview">
         
         {watermark && <img 
             src={watermark.imageUrl} 
@@ -38,7 +38,6 @@ export function CertificatePreview() {
 
         <table className="mgn" border={0} align="center" width="100%" cellSpacing="0" cellPadding="0" style={{border: '1px solid #000000', paddingLeft: '4px', paddingRight: '4px', paddingTop: '1px', paddingBottom: '1px', fontSize: '10pt', fontFamily: 'Arial Unicode MS', position: 'relative'}}>
             <tbody>
-                <tr><td colSpan={6}>&nbsp;</td></tr>
                 <tr>
                     <td colSpan={6}>
                         <p align="center">
@@ -47,10 +46,7 @@ export function CertificatePreview() {
                     </td>
                 </tr>
                 <tr><td colSpan={6}><p align="center"><font size="7">उत्तर प्रदॆश शासन</font></p></td></tr>
-                <tr><td colSpan={6}>&nbsp;</td></tr>
                 <tr><td colSpan={6}><p align="center"><b><font size="4">उत्तर प्रदेश के {data.category || 'पिछड़ी'} जाति के लिए जाति प्रमाण पत्र</font></b></p></td></tr>
-                <tr><td colSpan={6}>&nbsp;</td></tr>
-                <tr><td colSpan={6}>&nbsp;</td></tr>
                 <tr>
                     <td width="17%" nowrap="true"><b>जिला </b></td>
                     <td nowrap="true"><b>{data.currentAddressDistrict}</b></td>
@@ -137,7 +133,6 @@ export function CertificatePreview() {
                     </td>
                 </tr>
                  <tr><td colSpan={6}><font size="2pt">उत्तर प्रदेश राज्य की  <b><u>{data.caste}</u></b> जाति के व्यक्ति हैं। यह उत्तर प्रदेश लोक सेवा अनुसूचित जातियों,अनुसूचित जन जातियों तथा अन्य पिछड़े वर्गों के लिए आरक्षण अधिनियम १९९४ की अनुसूची एक के अन्तर्गत मान्यता प्राप्त है।<br/> यह भी प्रमाणित किया जाता है कि <b>  {data.applicantNameHindi}/{data.applicantNameEnglish}</b> पूर्वोक्त अधिनियम १९९४ (यथा संशोधित) की अनुसूची २ (जैसा कि उत्तर प्रदेश लोक सेवा)अनुसूचित जातियों, अनुसूचित जनजातियों और अन्य पिछड़े वर्गों के लिए आरक्षण (संशोधन) अधिनियम २००१ द्वारा प्रतिस्थापित किया गया है एंव जो उ०प्र० लोक सेवा अनुसूचित जातियों, अनुसूचित जनजातियों और अन्य पिछड़े वर्गों के लिए आरक्षण (संशोधन) अधिनियम २००२ एवं शासनादेश संख्या 22/16/92 टी० सी०-III , दिनाँक २० अक्टुबर २००८ द्वारा संशोधित की गई है, से आच्छादित नहीं है।इनके माता-पिता की निरन्तर तीन वर्षो की अवधि के लिये सकल वार्षिक आय आठ लाख रुपये  या इससे अधिक नहीं है तथा इनके पास धन कर अधिनियम १९५७ मे तथा विहिप छूट सीमा से अधिक सम्पत्ति नहीं है |</font></td></tr>
-                 <tr><td colSpan={6}>&nbsp;</td></tr>
                  <tr>
                     <td colSpan={6}>
                         &nbsp;
@@ -197,7 +192,6 @@ export function CertificatePreview() {
                                     <td width="9%" nowrap="true"><b>&nbsp;</b></td>
                                     <td width="19%" nowrap="true"><b>दिनॉंक:</b>&nbsp;<b>{issueDate}</b></td>
                                 </tr>
-                                <tr><td colSpan={6}>&nbsp;</td></tr>
                             </tbody>
                         </table>
                     </td>
