@@ -24,7 +24,7 @@ export function CertificatePreview() {
   const issueDate = data.issueDate || '09/10/2025';
 
   return (
-    <div className="bg-gray-100 min-h-screen p-4 sm:p-8 flex flex-col items-center">
+    <div className="bg-gray-100 p-4 sm:p-8 flex flex-col items-center">
       <div className="w-full max-w-4xl relative certificate-preview bg-white text-black shadow-lg">
         
         {watermark && <img 
@@ -32,7 +32,7 @@ export function CertificatePreview() {
             alt={watermark.description} 
             width={400} 
             height={400} 
-            style={{position: 'absolute', top: 220, left: 130, opacity: 0.1, pointerEvents: 'none'}} 
+            style={{position: 'absolute', top: 220, left: '50%', transform: 'translateX(-50%)', opacity: 0.1, pointerEvents: 'none'}} 
             data-ai-hint={watermark.imageHint}
         />}
 
@@ -49,11 +49,9 @@ export function CertificatePreview() {
                 <tr>
                     <td colSpan={6}><p align="center"><font size="7">उत्तर प्रदॆश शासन</font></p></td>
                 </tr>
-                <tr><td colSpan={6}>&nbsp;</td></tr>
                 <tr>
                     <td colSpan={6}><p align="center"><b><font size="4">उत्तर प्रदेश के {data.category || 'पिछड़ी'} जाति के लिए जाति प्रमाण पत्र</font></b></p></td>
                 </tr>
-                <tr><td colSpan={6}>&nbsp;</td></tr>
                 <tr><td colSpan={6}>&nbsp;</td></tr>
                 <tr>
                     <td width="17%" nowrap="true"><b>जिला </b></td>
@@ -143,7 +141,6 @@ export function CertificatePreview() {
                  <tr>
                     <td colSpan={6}><font size="2pt">उत्तर प्रदेश राज्य की  <b><u>{data.caste}</u></b> जाति के व्यक्ति हैं। यह उत्तर प्रदेश लोक सेवा अनुसूचित जातियों,अनुसूचित जन जातियों तथा अन्य पिछड़े वर्गों के लिए आरक्षण अधिनियम १९९४ की अनुसूची एक के अन्तर्गत मान्यता प्राप्त है।<br/> यह भी प्रमाणित किया जाता है कि <b>  {data.applicantNameHindi}/{data.applicantNameEnglish}</b> पूर्वोक्त अधिनियम १९९४ (यथा संशोधित) की अनुसूची २ (जैसा कि उत्तर प्रदेश लोक सेवा)अनुसूचित जातियों, अनुसूचित जनजातियों और अन्य पिछड़े वर्गों के लिए आरक्षण (संशोधन) अधिनियम २००१ द्वारा प्रतिस्थापित किया गया है एंव जो उ०प्र० लोक सेवा अनुसूचित जातियों, अनुसूचित जनजातियों और अन्य पिछड़े वर्गों के लिए आरक्षण (संशोधन) अधिनियम २००२ एवं शासनादेश संख्या 22/16/92 टी० सी०-III , दिनाँक २० अक्टुबर २००८ द्वारा संशोधित की गई है, से आच्छादित नहीं है।इनके माता-पिता की निरन्तर तीन वर्षो की अवधि के लिये सकल वार्षिक आय आठ लाख रुपये  या इससे अधिक नहीं है तथा इनके पास धन कर अधिनियम १९५७ मे तथा विहिप छूट सीमा से अधिक सम्पत्ति नहीं है |</font></td>
                 </tr>
-                 <tr><td colSpan={6}>&nbsp;</td></tr>
                  <tr>
                     <td colSpan={6}>&nbsp;
                         {qrCode && <Image style={{width: '56px', height: '56px'}} src={qrCode.imageUrl} alt={qrCode.description} width={56} height={56} data-ai-hint={qrCode.imageHint}/>}
@@ -154,9 +151,9 @@ export function CertificatePreview() {
                         <table border={0} style={{fontSize: '10pt'}} align="center" width="100%" cellSpacing="0" cellPadding="0">
                             <tbody>
                                 <tr>
-                                    <td align="left" width="17%" nowrap="true" valign="bottom" height="80">&nbsp;</td>
-                                    <td width="23%" nowrap="true" valign="bottom" height="80">&nbsp;</td>
-                                    <td width="29%" nowrap="true" valign="bottom" height="80" rowSpan={4}>
+                                    <td align="left" width="17%" nowrap="true" valign="bottom" height="50">&nbsp;</td>
+                                    <td width="23%" nowrap="true" valign="bottom" height="50">&nbsp;</td>
+                                    <td width="29%" nowrap="true" valign="bottom" height="50" rowSpan={4}>
                                         <table border={0} width="100%" cellSpacing="0" cellPadding="0" id="table1">
                                             <tbody>
                                                 <tr>
@@ -178,7 +175,7 @@ export function CertificatePreview() {
                                             </tbody>
                                         </table>&nbsp;
                                     </td>
-                                    <td width="15%" nowrap="true" colSpan={2} align="center" valign="bottom" height="80"></td>
+                                    <td width="15%" nowrap="true" colSpan={2} align="center" valign="bottom" height="50"></td>
                                 </tr>
                                 <tr>
                                     <td align="left" width="17%" nowrap="true">&nbsp;</td>
