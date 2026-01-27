@@ -21,6 +21,8 @@ export const certificateSchema = z.object({
   caste: z.string().min(1, "जाति आवश्यक है"),
   issueDate: z.string().min(1, "जारी दिनांक आवश्यक है"),
   officerName: z.string().min(1, "अधिकारी का नाम आवश्यक है"),
+  applicationNumber: z.string().min(1, "आवेदन क्रमांक आवश्यक है"),
+  certificateNumber: z.string().min(1, "प्रमाणपत्र क्रमांक आवश्यक है"),
 });
 
 export type CertificateFormValues = z.infer<typeof certificateSchema>;

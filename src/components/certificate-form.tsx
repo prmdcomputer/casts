@@ -58,6 +58,8 @@ export function CertificateForm() {
       caste: '',
       issueDate: '',
       officerName: '',
+      applicationNumber: '',
+      certificateNumber: '',
     },
   });
 
@@ -259,6 +261,15 @@ export function CertificateForm() {
                 )}/>
                 <FormField control={form.control} name="officerName" render={({ field }) => (
                   <FormItem><FormLabel>सक्षम अधिकारी का नाम / Officer's Name <span className="text-red-500">*</span></FormLabel><FormControl><Input placeholder="Officer's Name" {...field} /></FormControl><FormMessage /></FormItem>
+                )}/>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-6 border-t pt-6">
+                <FormField control={form.control} name="applicationNumber" render={({ field }) => (
+                  <FormItem><FormLabel>आवेदन क्रमांक / Application Number <span className="text-red-500">*</span></FormLabel><FormControl><Input placeholder="आवेदन क्रमांक" {...field} /></FormControl><FormMessage /></FormItem>
+                )}/>
+                <FormField control={form.control} name="certificateNumber" render={({ field }) => (
+                  <FormItem><FormLabel>प्रमाण पत्र क्रमांक / Certificate Number <span className="text-red-500">*</span></FormLabel><FormControl><Input placeholder="प्रमाण पत्र क्रमांक" {...field} /></FormControl><FormMessage /></FormItem>
                 )}/>
             </div>
 
