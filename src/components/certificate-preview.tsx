@@ -54,11 +54,11 @@ export function CertificatePreview() {
             data-ai-hint={watermark.imageHint}
         />}
 
-        <table className="mgn" border={0} align="center" width="100%" cellSpacing="0" cellPadding="0" style={{border: '1px solid #000000', paddingLeft: '4px', paddingRight: '4px', paddingTop: '1px', paddingBottom: '1px', fontSize: '10pt', fontFamily: 'Arial Unicode MS', position: 'relative'}}>
+        <table className="mgn" style={{padding: '1px', margin: '1px'}} border={0} align="center" width="100%" cellSpacing="0" cellPadding="0" style={{border: '1px solid #000000', paddingLeft: '4px', paddingRight: '4px', paddingTop: '1px', paddingBottom: '1px', fontSize: '10pt', fontFamily: 'Arial Unicode MS', position: 'relative'}}>
             <tbody>
                 <tr>
                     <td colSpan={6}>
-                        <p align="center">
+                        <p align="center" style={{padding: '1px', margin: '1px'}}>
                             {upSeal && <Image src={upSeal.imageUrl} alt={upSeal.description} width={110} height={110} data-ai-hint={upSeal.imageHint} />}
                         </p>
                     </td>
@@ -162,7 +162,7 @@ export function CertificatePreview() {
                     </td>
                 </tr>
                  <tr>
-                    <td align="center" colSpan={6}>
+                    <td align="right" colSpan={6}>
                         <table border={0} style={{fontSize: '10pt'}} cellSpacing="0" cellPadding="0">
                             <tbody>
                                 <tr>
@@ -180,17 +180,14 @@ export function CertificatePreview() {
                                         <br />
                                         C=IN,CN={data.officerName?.toUpperCase()}, L=ALLAHABAD, S=UTTAR PRADESH&nbsp;
                                     </td>
-                                    <td valign="bottom" align="center" style={{paddingLeft: '2rem'}}>
+                                    <td valign="bottom" align="center" style={{paddingRight: '2rem'}}>
                                         <b>सक्षम अधिकारी/तहसीलदार</b><br/>
                                         <b>डिजिटल हस्ताक्षरित</b><br/>
-                                        <b>{data.currentAddressTehsil},{data.currentAddressDistrict}</b>
+                                        <b>{data.currentAddressTehsil},{data.currentAddressDistrict}</b><br/>
+                                        <b>दिनॉंक:</b>&nbsp;<b>{issueDate}</b>
                                     </td>
                                 </tr>
-                                 <tr>
-                                    <td colSpan={3} align="right" style={{paddingTop: '1rem'}}>
-                                      <b>दिनॉंक:</b>&nbsp;<b>{issueDate}</b>
-                                    </td>
-                                </tr>
+                                
                             </tbody>
                         </table>
                     </td>
