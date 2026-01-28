@@ -83,13 +83,8 @@ export function CertificateForm() {
 
 
   function onSubmit(data: CertificateFormValues) {
-    const params = new URLSearchParams();
-    Object.entries(data).forEach(([key, value]) => {
-      if (value !== undefined && value !== null) {
-        params.append(key, String(value));
-      }
-    });
-    router.push(`/preview?${params.toString()}`);
+    sessionStorage.setItem('certificateData', JSON.stringify(data));
+    router.push('/preview');
   }
 
   return (

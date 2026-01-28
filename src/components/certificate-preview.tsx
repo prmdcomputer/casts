@@ -1,7 +1,6 @@
 'use client';
 
 import * as React from 'react';
-import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import QRCode from 'react-qr-code';
@@ -9,19 +8,25 @@ import { Button } from './ui/button';
 import { Printer } from 'lucide-react';
 
 export function CertificatePreview() {
-  const searchParams = useSearchParams();
+  const [data, setData] = React.useState<Record<string, string> | null>(null);
   const upSeal = PlaceHolderImages.find((img) => img.id === 'up-seal');
   const applicantPhotoPlaceholder = PlaceHolderImages.find((img) => img.id === 'applicant-photo');
   const watermark = PlaceHolderImages.find((img) => img.id === 'gov-monogram');
 
+  React.useEffect(() => {
+    const storedData = sessionStorage.getItem('certificateData');
+    if (storedData) {
+      setData(JSON.parse(storedData));
+    }
+  }, []);
 
-  const data = React.useMemo(() => {
-    const values: { [key: string]: string } = {};
-    searchParams.forEach((value, key) => {
-      values[key] = value;
-    });
-    return values;
-  }, [searchParams]);
+  if (!data) {
+    return (
+      <div className="flex items-center justify-center h-screen">
+        <div className="text-xl font-semibold">Loading Preview...</div>
+      </div>
+    );
+  }
 
   const verificationUrl = (data.applicationNumber && data.certificateNumber)
     ? `https://esathi.up.gov.in/citizenservices/ServiceEdist/Certificate/Caste/Forms/printCert.aspx?ApplicationNo=${data.applicationNumber}&CertificateID=${data.certificateNumber}`
@@ -59,26 +64,26 @@ export function CertificatePreview() {
                 <tr><td colSpan={6}><p align="center"><font size="7">उत्तर प्रदॆश शासन</font></p></td></tr>
                 <tr><td colSpan={6}><p align="center"><b><font size="4">उत्तर प्रदेश के {data.category || 'पिछड़ी'} जाति के लिए जाति प्रमाण पत्र</font></b></p></td></tr>
                 <tr>
-                    <td width="17%" nowrap><b>जिला </b></td>
-                    <td nowrap><b>{data.currentAddressDistrict}</b></td>
+                    <td width="17%" style={{whiteSpace: 'nowrap'}}><b>जिला </b></td>
+                    <td style={{whiteSpace: 'nowrap'}}><b>{data.currentAddressDistrict}</b></td>
                     <td width="30%" colSpan={3} align="right">&nbsp;</td>
-                    <td align="left" width="35%" nowrap>&nbsp;</td>
+                    <td align="left" width="35%">&nbsp;</td>
                 </tr>
                 <tr>
-                    <td width="17%" nowrap><b>तहसील </b></td>
-                    <td nowrap><b>{data.currentAddressTehsil}</b></td>
+                    <td width="17%" style={{whiteSpace: 'nowrap'}}><b>तहसील </b></td>
+                    <td style={{whiteSpace: 'nowrap'}}><b>{data.currentAddressTehsil}</b></td>
                     <td width="30%" colSpan={3} align="right">&nbsp;</td>
-                    <td align="left" width="35%" nowrap><b>जारी दिनांक: {issueDate}</b></td>
+                    <td align="left" width="35%" style={{whiteSpace: 'nowrap'}}><b>जारी दिनांक: {issueDate}</b></td>
                 </tr>
                 <tr>
-                    <td width="17%" valign="top" nowrap><b>आवेदन क्र०</b></td>
-                    <td width="30%" nowrap valign="top"><b>{data.applicationNumber}</b></td>
+                    <td width="17%" valign="top" style={{whiteSpace: 'nowrap'}}><b>आवेदन क्र०</b></td>
+                    <td width="30%" style={{whiteSpace: 'nowrap'}} valign="top"><b>{data.applicationNumber}</b></td>
                     <td width="30%" colSpan={3} valign="top" align="left">&nbsp;</td>
                     <td width="35%" align="right">&nbsp;</td>
                 </tr>
                 <tr>
-                    <td width="17%" nowrap valign="top"><b>प्रमाणपत्र क्र०</b></td>
-                    <td width="30%" nowrap valign="top"><b>{data.certificateNumber}</b></td>
+                    <td width="17%" style={{whiteSpace: 'nowrap'}} valign="top"><b>प्रमाणपत्र क्र०</b></td>
+                    <td width="30%" style={{whiteSpace: 'nowrap'}} valign="top"><b>{data.certificateNumber}</b></td>
                     <td width="30%" colSpan={3} valign="top" align="left">&nbsp;</td>
                     <td width="35%" align="right">&nbsp;</td>
                 </tr>
@@ -100,37 +105,37 @@ export function CertificatePreview() {
                                 </tr>
                                 <tr>
                                     <td width="10%" align="left" valign="top">&nbsp;</td>
-                                    <td width="32%" height="20" align="left" nowrap valign="middle">प्रमाणित किया जाता है कि</td>
+                                    <td width="32%" height="20" align="left" style={{whiteSpace: 'nowrap'}} valign="middle">प्रमाणित किया जाता है कि</td>
                                     <td width="33%" height="20" align="left" valign="middle"><font size="2pt"><b>  {data.applicantNameHindi}/{data.applicantNameEnglish}</b></font></td>
                                 </tr>
                                 <tr>
                                     <td width="10%" align="left" valign="top">&nbsp;</td>
-                                    <td width="32%" height="20" align="left" nowrap valign="middle"><font size="2pt">{data.relationType} </font></td>
+                                    <td width="32%" height="20" align="left" style={{whiteSpace: 'nowrap'}} valign="middle"><font size="2pt">{data.relationType} </font></td>
                                     <td width="33%" height="20" align="left" valign="middle"><font size="2pt"><b>  {data.relationName}</b></font></td>
                                 </tr>
                                 <tr>
                                     <td width="10%" align="left" valign="top">&nbsp;</td>
-                                    <td width="32%" height="20" align="left" nowrap valign="middle"><font size="2pt">माता का नाम</font></td>
+                                    <td width="32%" height="20" align="left" style={{whiteSpace: 'nowrap'}} valign="middle"><font size="2pt">माता का नाम</font></td>
                                     <td width="33%" height="20" align="left" valign="middle"><font size="2pt"><b>{data.motherName}</b></font></td>
                                 </tr>
                                 <tr>
-                                    <td width="10%" align="left" nowrap valign="top">&nbsp;</td>
-                                    <td width="32%" height="20" align="left" nowrap valign="middle"><font size="2pt">निवासी</font></td>
+                                    <td width="10%" align="left" style={{whiteSpace: 'nowrap'}} valign="top">&nbsp;</td>
+                                    <td width="32%" height="20" align="left" style={{whiteSpace: 'nowrap'}} valign="middle"><font size="2pt">निवासी</font></td>
                                     <td width="33%" height="20" align="left" valign="middle"><font size="2pt"><b>{data.currentAddressHouseNo},{data.currentAddressMohalla}&nbsp;</b></font></td>
                                 </tr>
                                 <tr>
-                                    <td width="20%" align="left" nowrap valign="top">&nbsp;</td>
-                                    <td width="32%" height="20" align="left" nowrap valign="top"><font size="2pt">ग्राम</font></td>
+                                    <td width="20%" align="left" style={{whiteSpace: 'nowrap'}} valign="top">&nbsp;</td>
+                                    <td width="32%" height="20" align="left" style={{whiteSpace: 'nowrap'}} valign="top"><font size="2pt">ग्राम</font></td>
                                     <td width="33%" height="20" align="left" valign="top"><font size="2pt"><b>{data.currentAddressGram}</b>&nbsp;</font></td>
                                 </tr>
                                 <tr>
-                                    <td width="10%" align="left" nowrap valign="top">&nbsp;</td>
-                                    <td width="32%" height="20" align="left" nowrap valign="top"><font size="2pt">तहसील</font></td>
+                                    <td width="10%" align="left" style={{whiteSpace: 'nowrap'}} valign="top">&nbsp;</td>
+                                    <td width="32%" height="20" align="left" style={{whiteSpace: 'nowrap'}} valign="top"><font size="2pt">तहसील</font></td>
                                     <td width="33%" height="20" align="left" valign="top"><font size="2pt"><b>{data.currentAddressTehsil}</b></font></td>
                                 </tr>
                                 <tr>
-                                    <td width="10%" align="left" nowrap valign="top">&nbsp;</td>
-                                    <td width="32%" height="20" align="left" nowrap valign="top"><font size="2pt">जिला</font></td>
+                                    <td width="10%" align="left" style={{whiteSpace: 'nowrap'}} valign="top">&nbsp;</td>
+                                    <td width="32%" height="20" align="left" style={{whiteSpace: 'nowrap'}} valign="top"><font size="2pt">जिला</font></td>
                                     <td width="33%" height="20" align="left" valign="top"><font size="2pt"><b>{data.currentAddressDistrict}</b></font></td>
                                 </tr>
                                  <tr>
