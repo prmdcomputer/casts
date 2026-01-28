@@ -12,8 +12,10 @@ function Loading() {
 
 export default function PreviewPage() {
   return (
-    <Suspense fallback={<Loading />}>
-      <CertificatePreview />
-    </Suspense>
+    <main className="bg-gray-100 min-h-screen py-8 flex justify-center">
+      <Suspense fallback={<Loading />}>
+        <CertificatePreview />
+      </Suspense>
+    </main>
   );
 }

@@ -5,6 +5,8 @@ import { useSearchParams } from 'next/navigation';
 import Image from 'next/image';
 import { PlaceHolderImages } from '@/lib/placeholder-images';
 import QRCode from 'react-qr-code';
+import { Button } from './ui/button';
+import { Printer } from 'lucide-react';
 
 export function CertificatePreview() {
   const searchParams = useSearchParams();
@@ -29,7 +31,13 @@ export function CertificatePreview() {
   const issueDate = data.issueDate ? new Date(data.issueDate).toLocaleDateString('en-GB') : '09/10/2025';
 
   return (
-    <div className="bg-gray-100 p-4 sm:p-8 flex flex-col items-center min-h-screen">
+    <div className="flex flex-col items-center">
+      <div className="w-full max-w-4xl flex justify-end mb-4 no-print">
+        <Button onClick={() => window.print()}>
+          <Printer className="mr-2 h-4 w-4" />
+          Print
+        </Button>
+      </div>
       <div className="w-full max-w-4xl bg-white text-black shadow-lg relative certificate-preview" style={{width: '21cm', padding: '1rem' }}>
         
         {watermark && <img 
@@ -138,8 +146,9 @@ export function CertificatePreview() {
                  <tr><td colSpan={6}><font size="2pt">उत्तर प्रदेश राज्य की  <b><u>{data.caste}</u></b> जाति के व्यक्ति हैं। यह उत्तर प्रदेश लोक सेवा अनुसूचित जातियों,अनुसूचित जन जातियों तथा अन्य पिछड़े वर्गों के लिए आरक्षण अधिनियम १९९४ की अनुसूची एक के अन्तर्गत मान्यता प्राप्त है।<br/> यह भी प्रमाणित किया जाता है कि <b>  {data.applicantNameHindi}/{data.applicantNameEnglish}</b> पूर्वोक्त अधिनियम १९९४ (यथा संशोधित) की अनुसूची २ (जैसा कि उत्तर प्रदेश लोक सेवा)अनुसूचित जातियों, अनुसूचित जनजातियों और अन्य पिछड़े वर्गों के लिए आरक्षण (संशोधन) अधिनियम २००१ द्वारा प्रतिस्थापित किया गया है एंव जो उ०प्र० लोक सेवा अनुसूचित जातियों, अनुसूचित जनजातियों और अन्य पिछड़े वर्गों के लिए आरक्षण (संशोधन) अधिनियम २००२ एवं शासनादेश संख्या 22/16/92 टी० सी०-III , दिनाँक २० अक्टुबर २००८ द्वारा संशोधित की गई है, से आच्छादित नहीं है।इनके माता-पिता की निरन्तर तीन वर्षो की अवधि के लिये सकल वार्षिक आय आठ लाख रुपये  या इससे अधिक नहीं है तथा इनके पास धन कर अधिनियम १९५७ मे तथा विहिप छूट सीमा से अधिक सम्पत्ति नहीं है |</font></td></tr>
                  <tr>
                     <td colSpan={6} align="center">
+                        <div style={{ margin: '1rem 0' }}>
                         {verificationUrl && (
-                          <div style={{ height: "auto", margin: "1rem auto 0", maxWidth: 100, width: "100%" }}>
+                          <div style={{ height: "auto", margin: "0 auto", maxWidth: 128, width: "100%" }}>
                             <QRCode
                               size={256}
                               style={{ height: "auto", maxWidth: "100%", width: "100%" }}
@@ -148,6 +157,7 @@ export function CertificatePreview() {
                             />
                           </div>
                         )}
+                        </div>
                     </td>
                 </tr>
                  <tr>

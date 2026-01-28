@@ -69,20 +69,24 @@
 }
 
 @media print {
-  .no-print {
-    display: none !important;
+  body * {
+    visibility: hidden;
   }
-  body {
-    background-color: white;
+  .certificate-preview, .certificate-preview * {
+    visibility: visible;
+  }
+  .certificate-preview {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    margin: 0;
+    padding: 0;
+    border: none;
+    box-shadow: none;
   }
   @page {
     size: A4;
     margin: 1cm;
-  }
-  .certificate-preview {
-    box-shadow: none;
-    border: none;
-    padding: 0;
-    margin: 0;
   }
 }
