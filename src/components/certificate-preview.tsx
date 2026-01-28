@@ -45,10 +45,12 @@ export function CertificatePreview() {
       </div>
       <div className="w-full max-w-4xl bg-white text-black shadow-lg relative certificate-preview" style={{width: '21cm', padding: '1rem' }}>
         
-        {watermark && <img 
+        {watermark && <Image 
             src={watermark.imageUrl} 
             alt={watermark.description}
-            style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', opacity: 0.1, pointerEvents: 'none', width: '400px', height: '400px'}} 
+            width={400}
+            height={400}
+            style={{position: 'absolute', top: '50%', left: '50%', transform: 'translate(-50%, -50%)', opacity: 0.1, pointerEvents: 'none'}} 
             data-ai-hint={watermark.imageHint}
         />}
 
@@ -138,12 +140,6 @@ export function CertificatePreview() {
                                     <td width="32%" height="20" align="left" style={{whiteSpace: 'nowrap'}} valign="top"><font size="2pt">जिला</font></td>
                                     <td width="33%" height="20" align="left" valign="top"><font size="2pt"><b>{data.currentAddressDistrict}</b></font></td>
                                 </tr>
-                                 <tr>
-                                    <td width="10%" align="left" valign="top">&nbsp;</td>
-                                    <td width="32%" align="left" valign="top">&nbsp;</td>
-                                    <td width="33%" align="left" valign="top">&nbsp;</td>
-                                    <td width="25%" align="left" valign="top">&nbsp;</td>
-                                </tr>
                             </tbody>
                         </table>&nbsp;
                     </td>
@@ -153,7 +149,7 @@ export function CertificatePreview() {
                     <td colSpan={6} align="center">
                         <div style={{ margin: '1rem 0' }}>
                         {verificationUrl && (
-                          <div style={{ height: "auto", margin: "0 auto", maxWidth: 128, width: "100%" }}>
+                          <div style={{ height: "auto", margin: "0 auto", maxWidth: 100, width: "100%" }}>
                             <QRCode
                               size={256}
                               style={{ height: "auto", maxWidth: "100%", width: "100%" }}
