@@ -146,7 +146,7 @@ export function CertificatePreview() {
                 </tr>
                  <tr><td colSpan={6}><font size="2pt">उत्तर प्रदेश राज्य की  <b><u>{data.caste}</u></b> जाति के व्यक्ति हैं। यह उत्तर प्रदेश लोक सेवा अनुसूचित जातियों,अनुसूचित जन जातियों तथा अन्य पिछड़े वर्गों के लिए आरक्षण अधिनियम १९९४ की अनुसूची एक के अन्तर्गत मान्यता प्राप्त है।<br/> यह भी प्रमाणित किया जाता है कि <b>  {data.applicantNameHindi}/{data.applicantNameEnglish}</b> पूर्वोक्त अधिनियम १९९४ (यथा संशोधित) की अनुसूची २ (जैसा कि उत्तर प्रदेश लोक सेवा)अनुसूचित जातियों, अनुसूचित जनजातियों और अन्य पिछड़े वर्गों के लिए आरक्षण (संशोधन) अधिनियम २००१ द्वारा प्रतिस्थापित किया गया है एंव जो उ०प्र० लोक सेवा अनुसूचित जातियों, अनुसूचित जनजातियों और अन्य पिछड़े वर्गों के लिए आरक्षण (संशोधन) अधिनियम २००२ एवं शासनादेश संख्या 22/16/92 टी० सी०-III , दिनाँक २० अक्टुबर २००८ द्वारा संशोधित की गई है, से आच्छादित नहीं है।इनके माता-पिता की निरन्तर तीन वर्षो की अवधि के लिये सकल वार्षिक आय आठ लाख रुपये  या इससे अधिक नहीं है तथा इनके पास धन कर अधिनियम १९५७ मे तथा विहिप छूट सीमा से अधिक सम्पत्ति नहीं है |</font></td></tr>
                  <tr>
-                    <td colSpan={6} align="center">
+                    <td>
                         <div style={{ margin: '1rem 0' }}>
                         {verificationUrl && (
                           <div style={{ height: "auto", margin: "0 auto", maxWidth: 100, width: "100%" }}>
@@ -163,39 +163,31 @@ export function CertificatePreview() {
                 </tr>
                  <tr>
                     <td align="center" colSpan={6}>
-                        <table border={0} style={{fontSize: '10pt'}} align="center" width="100%" cellSpacing="0" cellPadding="0">
+                        <table border={0} style={{fontSize: '10pt'}} cellSpacing="0" cellPadding="0">
                             <tbody>
                                 <tr>
-                                    <td width="60%" valign="top" style={{paddingLeft: '10%'}}>
-                                        <table border={0} width="100%" cellSpacing="0" cellPadding="0" id="table1">
-                                            <tbody>
-                                                <tr>
-                                                    <td valign="top" align="right" style={{fontSize: '20px', fontFamily: 'Arial', paddingRight: '5px'}}>
-                                                        {data.officerName?.split(' ').map((part, index, arr) => (
-                                                            <React.Fragment key={index}>
-                                                                {part}
-                                                                {index < arr.length - 1 && <br />}
-                                                            </React.Fragment>
-                                                        ))}
-                                                        &nbsp;
-                                                    </td>
-                                                    <td valign="top" align="left" style={{fontSize: '8px', fontFamily: 'Arial', paddingTop: '4px'}}>
-                                                        Digitally Signed by {data.officerName?.toUpperCase()} O=Personal,
-                                                        <br />
-                                                        C=IN,CN={data.officerName?.toUpperCase()}, L=ALLAHABAD, S=UTTAR PRADESH&nbsp;
-                                                    </td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                    <td valign="top" align="right" style={{fontSize: '20px', fontFamily: 'Arial', paddingRight: '5px'}}>
+                                        {data.officerName?.split(' ').map((part, index, arr) => (
+                                            <React.Fragment key={index}>
+                                                {part}
+                                                {index < arr.length - 1 && <br />}
+                                            </React.Fragment>
+                                        ))}
+                                        &nbsp;
                                     </td>
-                                    <td width="40%" valign="bottom" align="center">
+                                    <td valign="top" align="left" style={{fontSize: '8px', fontFamily: 'Arial', paddingTop: '4px'}}>
+                                        Digitally Signed by {data.officerName?.toUpperCase()} O=Personal,
+                                        <br />
+                                        C=IN,CN={data.officerName?.toUpperCase()}, L=ALLAHABAD, S=UTTAR PRADESH&nbsp;
+                                    </td>
+                                    <td valign="bottom" align="center" style={{paddingLeft: '2rem'}}>
                                         <b>सक्षम अधिकारी/तहसीलदार</b><br/>
                                         <b>डिजिटल हस्ताक्षरित</b><br/>
                                         <b>{data.currentAddressTehsil},{data.currentAddressDistrict}</b>
                                     </td>
                                 </tr>
                                  <tr>
-                                    <td colSpan={2} align="right" style={{paddingTop: '1rem', paddingRight: '5%'}}>
+                                    <td colSpan={3} align="right" style={{paddingTop: '1rem'}}>
                                       <b>दिनॉंक:</b>&nbsp;<b>{issueDate}</b>
                                     </td>
                                 </tr>
