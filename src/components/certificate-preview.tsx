@@ -50,7 +50,7 @@ export function CertificatePreview() {
             alt={watermark.description}
             width={500}
             height={500}
-            style={{position: 'absolute', top: '35%', left: '40%', transform: 'translate(-50%, -50%)', opacity: 0.4, pointerEvents: 'none'}} 
+            style={{position: 'absolute', top: '45%', left: '45%', transform: 'translate(-50%, -50%)', opacity: 0.4, pointerEvents: 'none'}} 
             data-ai-hint={watermark.imageHint}
         />}
 
