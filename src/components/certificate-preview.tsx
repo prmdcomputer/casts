@@ -48,9 +48,9 @@ export function CertificatePreview() {
         {watermark && <Image 
             src={watermark.imageUrl} 
             alt={watermark.description}
-            width={500}
-            height={500}
-            style={{position: 'absolute', top: '45%', left: '45%', transform: 'translate(-50%, -50%)', opacity: 0.4, pointerEvents: 'none'}} 
+            width={450}
+            height={450}
+            style={{position: 'absolute', top: '50%', left: '45%', transform: 'translate(-50%, -50%)', opacity: 0.4, pointerEvents: 'none'}} 
             data-ai-hint={watermark.imageHint}
         />}
 
