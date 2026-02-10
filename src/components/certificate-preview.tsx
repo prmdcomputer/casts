@@ -57,7 +57,7 @@ export function CertificatePreview() {
         <table className="mgn" style={{padding: '1px', margin: '1px'}} border={0} align="center" width="100%" cellSpacing="0" cellPadding="0" style={{border: '1px solid #000000', paddingLeft: '4px', paddingRight: '4px', paddingTop: '1px', paddingBottom: '1px', fontSize: '10pt', fontFamily: 'Arial Unicode MS', position: 'relative'}}>
             <tbody>
                 <tr>
-                  <td>
+                  <td colSpan={6}>
                     <p align="left">ई-डिस्ट्रिक्ट के अन्तर्गत जारी..</p>
                   </td>
                 </tr>
