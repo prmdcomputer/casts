@@ -57,6 +57,11 @@ export function CertificatePreview() {
         <table className="mgn" style={{padding: '1px', margin: '1px'}} border={0} align="center" width="100%" cellSpacing="0" cellPadding="0" style={{border: '1px solid #000000', paddingLeft: '4px', paddingRight: '4px', paddingTop: '1px', paddingBottom: '1px', fontSize: '10pt', fontFamily: 'Arial Unicode MS', position: 'relative'}}>
             <tbody>
                 <tr>
+                  <td>
+                    <p align="left">ई-डिस्ट्रिक्ट के अन्तर्गत जारी..</p>
+                  </td>
+                </tr>
+                <tr>
                     <td colSpan={6}>
                         <p align="center" style={{padding: '1px', margin: '1px'}}>
                             {upSeal && <Image src={upSeal.imageUrl} alt={upSeal.description} width={110} height={110} data-ai-hint={upSeal.imageHint} />}
@@ -123,7 +128,7 @@ export function CertificatePreview() {
                                 <tr>
                                     <td width="10%" align="left" style={{whiteSpace: 'nowrap'}} valign="top">&nbsp;</td>
                                     <td width="32%" height="20" align="left" style={{whiteSpace: 'nowrap'}} valign="middle"><font size="2pt">निवासी</font></td>
-                                    <td width="33%" height="20" align="left" valign="middle"><font size="2pt"><b>{data.currentAddressHouseNo},{data.currentAddressMohalla}&nbsp;</b></font></td>
+                                    <td width="33%" height="20" align="left" valign="middle"><font size="2pt"><b>{data.currentAddressHouseNo} {data.currentAddressMohalla}&nbsp;</b></font></td>
                                 </tr>
                                 <tr>
                                     <td width="20%" align="left" style={{whiteSpace: 'nowrap'}} valign="top">&nbsp;</td>
